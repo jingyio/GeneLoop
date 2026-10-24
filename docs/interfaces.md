@@ -9,6 +9,9 @@
 `paper-web-v33` / `ppt-master-v30` 为当前注册的兼容导出，旧库保留。使用当前导出器重导出一致性、IR/manifest/task/schema/来源证据逐字节一致及新包实际加载检查更新当前源码绑定；这不是新训练、原始轨迹重放或质量晋级。范围与验证见 [清理记录](experiments/motif-matching-cleanup-20261030-v1.md)。
 
 File 公共种子的历史 `runtime_source` 作为来源记录保留，安装不再要求它与当前整份源码快照相同。Python 安装路径使用已有 `policy_current()` 核对当前工具契约与执行版本；TypeScript 验证发布载荷与当前注册表源码绑定，实际接管仍核对任务的工具契约、执行版本和权限。证书及旧库载荷不改写。
+## F02 执行与更新协议（审核候选）
+
+新增显式 opt-in 的 `geneloop.rsi/v1` 信封、Python 离线校验/导出及 TypeScript 在线准入/更新接缝；共同例子、最短命令、可信宿主要求与兼容表见 [F02 协议说明](rsi-protocol-v1.md)。运行 `npm run rsi:demo` / `npm run rsi:check`。当前只验证局部计数和协议接缝，候选检索、自动学习、生产适配和实际净收益未据此成立；旧库证书不能由新信封自动升级。
 
 ## 不限额Web与模型容量（2026-10-20）
 
