@@ -1,7 +1,7 @@
 """Trusted product releases of re-certified Motifs, separate from private proof.
 
 Publishing requires the original independent private certificate. Installation
-verifies a read-only product manifest and source locks; it never imports user
+verifies product provenance and current tool/execution contracts; it never imports user
 files, historical task grants, raw traces, or another account's mutable registry.
 """
 from pathlib import Path
@@ -40,14 +40,9 @@ def validate_historical_certificate(policy,certificate,raw_sha,project=None):
 
 
 def validate_certificate(policy,certificate,raw_sha,project=None):
-    from .continuous_rsi import ROOT,source_map
-    from .mcp_learning import adapter
-    from .experience_library import policy_current
+    from .experience_library import policy_current,sources
     cert=validate_historical_certificate(policy,certificate,raw_sha,project)
-    root=Path(project or ROOT).resolve()
-    manifest=read(root/'motif-libraries'/cert['release']/'entry.json')
-    runtime=source_map(adapter('management_v3').runtime_sources())
-    if manifest.get('runtime_source')!=runtime or not policy_current(policy,runtime):raise ValueError('seed runtime/catalog version changed')
+    if not policy_current(policy,sources()):raise ValueError('seed runtime/catalog version changed')
     return cert
 
 
@@ -61,7 +56,6 @@ def install(cfg):
         if not (release/'entry.json').is_file():continue
         try:
             manifest=read(release/'entry.json')
-            if manifest.get('runtime_source')!=sources():continue
             validated=[]
             for item in manifest['entries']:
                 if any(not re.fullmatch(r'(?:policies|certificates)/[a-f0-9]{64}\.json',item.get(k,'')) or item[k] not in manifest['files'] for k in ['payload','certificate']):raise ValueError('seed path outside trusted manifest')

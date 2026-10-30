@@ -1,0 +1,42 @@
+{
+  "train": [
+    "t11_mixed_fps_montage",
+    "t12_chapter_pair",
+    "t15_vertical_pan",
+    "t16_square_contain",
+    "t19_long_crossfade",
+    "t20_freeze_detail",
+    "t23_music_ducking",
+    "t24_inset_with_score",
+    "t27_timed_story_captions",
+    "t28_metric_panel"
+  ],
+  "certification": [
+    "t13_four_shots",
+    "t17_three_columns",
+    "t21_slow_fast",
+    "t25_audio_bridge",
+    "t29_vertical_campaign"
+  ],
+  "evaluation": [
+    "t14_intro_broll_outro",
+    "t18_pip_timeline",
+    "t22_repeat_then_move",
+    "t26_silent_open_music",
+    "t30_four_panel_clock"
+  ],
+  "legacy_descriptive_only": [
+    "t01_trim_title",
+    "t02_montage",
+    "t03_vertical",
+    "t04_split_screen",
+    "t05_captions",
+    "t06_speed",
+    "t07_pip",
+    "t08_crossfade",
+    "t09_square_brand",
+    "t10_data_overlay"
+  ],
+  "status": "frozen_before_model_calls",
+  "tasks_sha256": "b9a8a1e95dfafa78b729281e3cc785d5462ee737e7fb2f4db686544f022e0f8a"
+}

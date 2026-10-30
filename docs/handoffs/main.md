@@ -1,3 +1,20 @@
+## 2026-10-30：视频程序复用与形式RSI（本轮收尾）
+
+程序复用核心已有真实证据：最新六题all/source全部实际复用并重新渲染，无源码回退；模型请求44→30、前向代理估费降35.8%，输出Token降48.8%，但总Token增加7.8%，面板题贡献较多，不能称稳定总Token或净费用下降。原Flash质量门槛未全过，两候选正式拒绝，没有发布或后继消费；四例测量校准仅2/4吻合实际像素，未重判旧结果。Meta真实走过提案→影响编译→实际对照→拒绝，成功递归分支尚未实证。现已停止新增批次，全部932次新增请求/账本前缀/未知费用闭合归档，最后3096为未认证候选。代码及外部像素复核衔接定向Python26/Node6通过；最近全量仍保留既有typed413并发失败。代码未提交/推送/合并/部署，正式服务未改。具体证据、限制与接手范围见[场景交接](remotion-edit.md)和[实验报告](../experiments/remotion-program-rsi-20261030-v1.md)。
+
+## 2026-10-30：Motif 参数编译与匹配第一轮清理
+
+- 更新时间与交接人：2026-10-30，Codex。
+- 目标与范围：按用户前文讨论，优先直接删除重复实现、无效配置和没有增加证据的比较；不新增场景白名单或开关。完整总结见 [清理记录](../experiments/motif-matching-cleanup-20261030-v1.md)。
+- 分支 / 版本：`codex/remotion-program-reuse-rsi`，基于现场核实的远程 main `ec72908755ea6df1771ec962b40e3b27be381ebb`，位于本聊天独立 worktree；未提交、未推送、未合并、未部署。原 Desktop 工作区与私人实验不变。
+- 已完成：删除两处编译器训练值多样性门槛；单建议 `proposeNext()` 委托批次匹配；删除会话历史的重复 `inputVersion` 标签及未使用的通用 `minMargin` 配置。File Python/TypeScript 删除历史源码快照相等要求，使用已有当前工具契约、执行版本和实际注册表绑定；真实不兼容版本仍被拒绝。生产源码增加 11 行、删除 82 行，净减少 71 行。
+- 产品兼容：通过已有重导出工具生成 `paper-web-v33` / `ppt-master-v30` 并更新 `config/harless-scenes.json`；IR/manifest/task/schema/来源证据与旧版逐字节相同，新包加载通过，旧包不改写。File 原始分发继续使用独立兼容记录，原 catalog/载荷不改写。这是兼容验证，无新训练、原始轨迹重放或质量晋级。
+- 已验证：编译与产品/场景定向 71 项、在线匹配及续接 43 项、File/public bundle 23 项通过；最终 TS 对齐后 File Python 17 项及 File/transport Node 22 项通过。全量 Python 1519 通过、235 跳过、2 失败，两个 PDF 导出失败在原样 main 同样复现。`npm test` 在此退出，Node 全量另行执行：1375 通过、15 跳过、1 失败，大文件上传 `ECONNRESET` 在原样 main 相同全量并发中复现；两侧单独执行该文件通过。`smoke`、`motif:check`、库摘要核对与 `git diff --check` 通过。没有发现新增回归，不称全量通过；均为无模型诊断。
+- 配置与数据：公共配置和证据摘要见新库与接口文档；私有测试日志为本 worktree `.local/cleanup-*.log`，重导出配置 `.local/reexport-matching-cleanup.py`。早期失败与环境诊断保留，未覆盖为成功。
+- 结论与边界：支持训练值重复并复用新值、合并重复匹配实现；未扩大写操作接管，未修改 Script 认证及其分差阈值，未重测 Paper 的 Token 效果。
+- 未完成与接手下一步：1. 审阅本地 diff 和兼容范围，再安排集成；2. 下一轮处理工具名字特判、固定第一页、失效屏障，以及候选挖掘与执行权限分离；3. PDF 与并发上传基线失败另行修复，不能以删除断言掩盖。
+- 权限与费用：本轮模型请求 0、API 费用 0；仅本地离线开发验证，外部应用和正式服务未操作。回退本分支源码、场景指针及兼容记录的本轮差异即可，不删除旧库或私有数据。
+
 > 2026-10-21 Plan/Compact/Goal复测：原正式7e167ed保持运行，无应用修改/重启。33项定向诊断、8项真实案例及3项公网网页流程均通过；54唯一真实请求、代理估费USD0.019849910，原账本前缀与计量路由保持。审批卡片仍为英文；一次自动重连后恢复，原因未调查。未在本轮重测三场景业务交付/File独立SDK。见[功能复测记录](../experiments/mode-controls-20261021.md)，私有证据在`.local/mode-controls-20261021/`。本轮只有记录变更，源码/同步状态以Git为准。
 
 > 2026-10-21 Motif成本学习：分支`codex/motif-cost-learning-20261021`，实现`76ca3e2`；新增默认关闭的原生程序学习／独立认证／TypeScript隔离执行入口，未改上游DSH或正式库。最新匹配样例Paper/PPT/Data总Token分别下降41.9%/6.3%/61.3%，代理估费下降30.5%/20.3%/48.3%；PPT调用90→106，不能称所有场景都减少请求。按用户最新指示PPT不验内容正确性。全部45任务2468次真实请求/USD3.62514535，旧退化与零请求取消保留；完整Linux1718 Python、1359 Node通过（各4skip），smoke/motif通过。见[成本学习记录](../experiments/three-scene-motif-cost-learning-20261021.md)与[接口](../interfaces.md#artifact-motif-独立实验接口2026-10-21)。线上仍7e167ed；Cloudflare原Worker已在用户登录后仅更新UPSTREAM_ORIGIN，public-confirm成功，后端PID未变、旧隧道保留，私有GENELOOP_PUBLIC_CONFIG已补齐。当前源码PR合并状态以下续记为准。

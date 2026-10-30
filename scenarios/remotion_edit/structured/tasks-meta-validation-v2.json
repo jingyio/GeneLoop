@@ -1,0 +1,451 @@
+[
+  {
+    "id": "t55_three_shots",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 270,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "制作9秒三镜头剪辑，输出30fps。输出0–3秒播放bunny_a_24.mp4源0.5–3.5秒；输出3–6秒播放bunny_b_30.mp4源4–7秒；输出6–9秒播放bunny_c_60.mp4源2–5秒。静音cover，3秒和6秒硬切。顶部全程THREE SHOTS，底部依次FIRST、SECOND、THIRD。开头立即有画面。",
+    "question_origin": "new_frozen_form_validation_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 1,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 3.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 4.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 6.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 2.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 8.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 4.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v2"
+  },
+  {
+    "id": "t56_four_shots",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 24,
+    "frames": 192,
+    "assets": [
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "制作8秒四镜头剪辑，输出24fps。输出0–2秒播放bunny_b_30.mp4源1–3秒；输出2–4秒播放bunny_c_60.mp4源3–5秒；输出4–6秒播放bunny_b_30.mp4源7–9秒；输出6–8秒播放bunny_c_60.mp4源8–10秒。静音cover，每2秒硬切。顶部全程FOUR SHOTS，底部依次B ONE、C ONE、B TWO、C TWO。开头立即有画面。",
+    "question_origin": "new_frozen_form_validation_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "program",
+      "fused"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 1.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 2.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 3.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 4.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 7.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 6.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 8.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v2"
+  },
+  {
+    "id": "t57_left_inset",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 180,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4"
+    ],
+    "instruction": "制作6秒画中画。全屏背景播放bunny_a_24.mp4源3–9秒；输出1–4秒显示bunny_b_30.mp4源6–9秒。小窗左上角(32,184)，宽200高112，cover，无边框，无淡入，窗口以外不显示小窗。静音。顶部全程LEFT DETAIL，底部不加遮挡。",
+    "question_origin": "new_frozen_form_validation_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 3.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 2,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 5,
+          "fit": "cover",
+          "roi": [
+            0.5,
+            0.25,
+            0.9,
+            0.65
+          ]
+        },
+        {
+          "output_seconds": 5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 8,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 2,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 7,
+          "fit": "cover",
+          "roi": [
+            0.1,
+            0.1,
+            0.9,
+            0.9
+          ],
+          "box": [
+            32,
+            184,
+            232,
+            296
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v2"
+  },
+  {
+    "id": "t58_lower_detail",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 240,
+    "assets": [
+      "bunny_c_60.mp4",
+      "bunny_a_24.mp4"
+    ],
+    "instruction": "制作8秒画中画。全屏背景播放bunny_c_60.mp4源0–8秒；输出3–7秒显示bunny_a_24.mp4源3–7秒。小窗左上角(40,200)，宽240高135，cover，无边框，无淡入，窗口以外不显示小窗。静音。顶部全程LOWER DETAIL，底部不加遮挡。",
+    "question_origin": "new_frozen_form_validation_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "program",
+      "fused"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 0.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 4,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 4,
+          "fit": "cover",
+          "roi": [
+            0.5,
+            0.25,
+            0.9,
+            0.6
+          ]
+        },
+        {
+          "output_seconds": 7.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 7.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 4,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 4,
+          "fit": "cover",
+          "roi": [
+            0.1,
+            0.1,
+            0.9,
+            0.9
+          ],
+          "box": [
+            40,
+            200,
+            280,
+            335
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v2"
+  },
+  {
+    "id": "t59_clean_sound",
+    "partition": "evaluation",
+    "width": 480,
+    "height": 480,
+    "fps": 30,
+    "frames": 210,
+    "assets": [
+      "bunny_a_24.mp4",
+      "audio.mp3"
+    ],
+    "instruction": "制作7秒视频：全屏cover播放bunny_a_24.mp4源2–9秒，原视频静音。audio.mp3源2–6秒只在输出1–5秒播放，音量0.6，不淡入淡出，其它时间静音。顶部全程CLEAN SOUND，不加其它遮挡。",
+    "question_origin": "new_frozen_form_validation_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 2.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 3,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 6.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 8.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind",
+      "audio_windows": [
+        {
+          "start": 0.1,
+          "duration": 0.6,
+          "silent": true
+        },
+        {
+          "start": 2,
+          "duration": 1,
+          "silent": false
+        },
+        {
+          "start": 6,
+          "duration": 0.6,
+          "silent": true
+        }
+      ]
+    },
+    "evaluation_role": "form_validation_v2"
+  },
+  {
+    "id": "t60_new_metrics",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 240,
+    "assets": [
+      "bunny_b_30.mp4"
+    ],
+    "instruction": "制作8秒数据叠层视频：全屏cover播放bunny_b_30.mp4源1–9秒，静音。底部35%为不透明深蓝面板，面板内部显示三根柱子，标签A/B/C、数值7/19/31；柱子、基线、标签、数值必须全部位于面板内部，不能盖到面板上方的视频。顶部全程NEW METRICS。",
+    "arm_order": [
+      "program",
+      "fused"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 1.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.82,
+            0.55
+          ]
+        },
+        {
+          "output_seconds": 4,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.82,
+            0.55
+          ]
+        },
+        {
+          "output_seconds": 7.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 8.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.82,
+            0.55
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "prompt_protocol": "semantic-timing-v2",
+    "question_origin": "new_frozen_form_validation_parameter_variant",
+    "evaluation_role": "form_validation_v2"
+  }
+]

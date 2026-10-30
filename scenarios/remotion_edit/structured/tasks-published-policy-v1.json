@@ -1,0 +1,77 @@
+[
+  {
+    "id": "t61_after_update",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 240,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "Create an 8-second three-shot edit at 30fps. Output 0-3s plays bunny_b_30.mp4 source 0-3s; output 3-5s plays bunny_a_24.mp4 source 7-9s; output 5-8s plays bunny_c_60.mp4 source 3-6s. Muted, cover, hard cuts at 3s and 5s, immediate visible start. Top title AFTER UPDATE throughout. Bottom labels ENTRY, DETAIL and FINALE respectively.",
+    "question_origin": "new_frozen_post_publication_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 0.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 3.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 7.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 5.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 3.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 7.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 5.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "post_publication_adoption"
+  }
+]

@@ -58,7 +58,7 @@ def trace(label: str, doc_id: str, *, read_id: str | None = None,
 
 
 def certified_artifact():
-    first, second, holdout = trace("alpha", "A"), trace("beta", "B"), trace("gamma", "C")
+    first, second, holdout = trace("alpha", "A"), trace("beta", "A"), trace("gamma", "C")
     candidate = mine_dsh_traces([first, second])[0]
     compiled = compile_read_motif(candidate, [first, second], CONTRACTS)
     return certify_read_motif(compiled, holdout, CONTRACTS)
@@ -197,7 +197,7 @@ class TraceCompiledReadMotifTests(unittest.TestCase):
             {"from_tool": "search", "from_field": "id", "to_param": "doc_id"}])
 
     def test_equal_values_without_causal_source_do_not_compile_transfer(self) -> None:
-        first, second = trace("alpha", "A", causal=False), trace("beta", "B", causal=False)
+        first, second = trace("alpha", "A", causal=False), trace("beta", "A", causal=False)
         candidate = mine_dsh_traces([first, second])[0]
         compiled = compile_read_motif(candidate, [first, second], CONTRACTS)
         self.assertEqual(compiled["transfer_evidence"], [])

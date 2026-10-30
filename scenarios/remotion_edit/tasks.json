@@ -1,0 +1,12 @@
+[
+ {"id":"t01_trim_title","width":640,"height":360,"frames":120,"fps":30,"instruction":"剪一个4秒横版开场。从video.mp4的1秒开始取4秒，保留原声但音量0.35。上方加标题 FIELD NOTES，前0.5秒淡入，末0.5秒淡出；右下显示2026。"},
+ {"id":"t02_montage","width":640,"height":360,"frames":180,"fps":30,"instruction":"制作6秒三段蒙太奇：video.mp4的0–2秒、video-10s.mp4的3–5秒、video.mp4的3–5秒依次硬切。分别标注 OBSERVE / COMPARE / REPLAY。所有素材静音，audio.mp3作背景，音量0.2，末1秒淡出。"},
+ {"id":"t03_vertical","width":360,"height":640,"frames":150,"fps":30,"instruction":"将video-10s.mp4的2–7秒裁成9:16竖屏，居中cover，不拉伸。全程顶部显示 QUICK LOOK，底部前2.5秒显示 Frame the moment，后2.5秒显示 Keep the detail；底部加随时间增长的青色进度条，原声静音。"},
+ {"id":"t04_split_screen","width":640,"height":360,"frames":150,"fps":30,"instruction":"制作5秒左右分屏对照。左侧播放video.mp4从0秒起，右侧播放video-10s.mp4从2秒起，两侧cover但不拉伸，中间白色细分隔线。左上标 ORIGINAL，右上标 ALTERNATE，全程静音。"},
+ {"id":"t05_captions","width":640,"height":360,"frames":180,"fps":30,"instruction":"video-10s.mp4从0秒起剪6秒，静音，三条准确计时的字幕：0–2秒 A small beginning；2–4秒 A different perspective；4–6秒 A clear next step。字幕居中底部黑色半透明底，上方显示 DEMO CUT；不要调用语音识别，字幕文字已经给定。"},
+ {"id":"t06_speed","width":640,"height":360,"frames":120,"fps":30,"instruction":"制作4秒速度对比：前2秒video.mp4从0秒起以正常速度播放，后2秒video-10s.mp4从2秒起以2倍速度播放（消费4秒源）。前后分别显示 1x / 2x，转场为硬切，源静音，背景audio.mp3音量0.15。"},
+ {"id":"t07_pip","width":640,"height":360,"frames":180,"fps":30,"instruction":"制作6秒画中画：video-10s.mp4从1秒起作为cover背景，video.mp4从0秒起作为右下角宽200高112的画中画（白色边框），画中画仅在1–5秒可见。左上全程显示 TWO VIEWS，所有视频静音。"},
+ {"id":"t08_crossfade","width":640,"height":360,"frames":165,"fps":30,"instruction":"制作5.5秒双镜头交叉淡化：video.mp4的0–3秒和video-10s.mp4的2–5秒，重叠0.5秒，输出总计5.5秒。全程静音；前段左下显示 START，后段左下显示 CONTINUE。使用frame驱动的opacity或@remotion/transitions。"},
+ {"id":"t09_square_brand","width":480,"height":480,"frames":150,"fps":30,"instruction":"制作5秒方形社媒片：前1秒深蓝纯色标题卡 MOTION LAB；中间3秒video-10s.mp4从3秒起cover并静音，左上角持续显示 LAB；末1秒深蓝结束卡 SEE YOU NEXT TIME。audio.mp3贯穿，0.5秒淡入淡出，音量最高0.2。"},
+ {"id":"t10_data_overlay","width":640,"height":360,"frames":180,"fps":30,"instruction":"制作6秒实验演示：video-10s.mp4从0秒起背景静音，下方绘制半透明深蓝数据面板，三柱数值12、19、27，标签A、B、C；柱高在前2秒从0增长到对应值。标题 OBSERVED COUNTS；右上角按0–6秒显示当前秒数一位小数。数值只是给定演示数据，不生成科研结论。"}
+]

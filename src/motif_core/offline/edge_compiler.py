@@ -141,10 +141,6 @@ def compile_witnessed_edge_motif(candidate: dict[str, Any], traces: list[Any],
     matched = [_witnesses(trace, candidate, contracts) for trace in selected]
     if any(not pairs for pairs in matched):
         raise ValueError("a supporting trace lacks a safe exact-argument edge witness")
-    observed_values = [_value(source_row.observation, candidate["from_field"])
-                       for pairs in matched for source_row, _ in pairs]
-    if len({str(value) for value in observed_values}) < 2:
-        raise ValueError("constant values do not prove transferable parameter flow")
     motif_key = json.dumps({"edge": [source, candidate["from_field"], target,
                                       candidate["to_param"]], "traces": sorted(trace_ids)},
                            sort_keys=True, separators=(",", ":"))

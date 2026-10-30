@@ -1,0 +1,440 @@
+[
+  {
+    "id": "t80_field_notes",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 240,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "Create an 8s three-shot edit at 30fps. Output 0-2s plays bunny_a_24.mp4 source 2-4s; output 2-5s plays bunny_c_60.mp4 source 4-7s; output 5-8s plays bunny_b_30.mp4 source 6-9s. Muted cover, immediate picture and hard cuts at 2s and 5s. Display literal title FIELD NOTES at the top throughout; bottom labels A, C, B respectively.",
+    "question_origin": "new_frozen_program_layout_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 2.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 2.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 4.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 4.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 6.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 5.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 6.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 7.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 8.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v6"
+  },
+  {
+    "id": "t81_four_intervals",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 24,
+    "frames": 168,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "Create a 7s four-shot edit at 24fps. Output 0-1s plays bunny_c_60.mp4 source 1-2s; output 1-3s plays bunny_a_24.mp4 source 3-5s; output 3-4s plays bunny_b_30.mp4 source 4-5s; output 4-7s plays bunny_c_60.mp4 source 6-9s. Muted cover, immediate picture, hard cuts at 1s,3s,4s. Display literal title FOUR INTERVALS at the top throughout; bottom labels C1, A, B, C2 respectively.",
+    "question_origin": "new_frozen_program_layout_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 1.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 1.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 3.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 3.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 4.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 4.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 6.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 6.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 8.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v6"
+  },
+  {
+    "id": "t82_layout_check",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 240,
+    "assets": [
+      "bunny_b_30.mp4",
+      "bunny_a_24.mp4"
+    ],
+    "instruction": "Create a 8s muted picture-in-picture video at30fps. Fullscreen cover background bunny_b_30.mp4 source 1-9s. Show bunny_a_24.mp4 source 2-4s only at output 4-6s. Its rectangle upper-left corner is (x=336,y=190), width280 height158, cover, no border or fades. No inset outside that interval. Display literal title LAYOUT CHECK at the top throughout; no bottom overlays.",
+    "question_origin": "new_frozen_program_layout_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 1.5,
+          "fit": "cover",
+          "roi": [
+            0.06,
+            0.23,
+            0.48,
+            0.44
+          ]
+        },
+        {
+          "output_seconds": 7.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 8.5,
+          "fit": "cover",
+          "roi": [
+            0.06,
+            0.23,
+            0.48,
+            0.44
+          ]
+        },
+        {
+          "output_seconds": 4.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 2.5,
+          "fit": "cover",
+          "roi": [
+            0.15,
+            0.2,
+            0.85,
+            0.8
+          ],
+          "box": [
+            336,
+            190,
+            616,
+            348
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v6"
+  },
+  {
+    "id": "t83_window_study",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 210,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "Create a 7s muted picture-in-picture video at30fps. Fullscreen cover background bunny_a_24.mp4 source 2-9s. Show bunny_c_60.mp4 source 6-9s only at output 1.5-4.5s. Its rectangle upper-left corner is (x=24,y=174), width240 height135, cover, no border or fades. No inset outside that interval. Display literal title WINDOW STUDY at the top throughout; no bottom overlays.",
+    "question_origin": "new_frozen_program_layout_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 2.5,
+          "fit": "cover",
+          "roi": [
+            0.06,
+            0.23,
+            0.48,
+            0.44
+          ]
+        },
+        {
+          "output_seconds": 6.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 8.5,
+          "fit": "cover",
+          "roi": [
+            0.06,
+            0.23,
+            0.48,
+            0.44
+          ]
+        },
+        {
+          "output_seconds": 2.0,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 6.5,
+          "fit": "cover",
+          "roi": [
+            0.15,
+            0.2,
+            0.85,
+            0.8
+          ],
+          "box": [
+            24,
+            174,
+            264,
+            309
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v6"
+  },
+  {
+    "id": "t84_audio_window",
+    "partition": "evaluation",
+    "width": 480,
+    "height": 480,
+    "fps": 24,
+    "frames": 192,
+    "assets": [
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "Create an 8s 480x480 cover video at24fps with immediate picture from bunny_c_60.mp4 source 1-9s, muted. Use audio only from bunny_b_30.mp4 source 4-7s at output 2-5s, volume0.6 with no fades. Silence outside2-5s. Display literal title AUDIO WINDOW at the top throughout.",
+    "question_origin": "new_frozen_program_layout_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 1.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 3.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 4.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 7.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 8.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind",
+      "audio_windows": [
+        {
+          "start": 0.3,
+          "duration": 1.2,
+          "silent": true
+        },
+        {
+          "start": 2.3,
+          "duration": 2.2,
+          "silent": false
+        },
+        {
+          "start": 5.5,
+          "duration": 2,
+          "silent": true
+        }
+      ]
+    },
+    "evaluation_role": "form_validation_v6"
+  },
+  {
+    "id": "t85_data_update",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 240,
+    "assets": [
+      "bunny_b_30.mp4"
+    ],
+    "instruction": "Create an 8s muted 640x360 cover video at30fps using bunny_b_30.mp4 source 1-9s, immediate picture. Add an opaque navy data panel covering exactly the bottom32% of the frame. Three bars S=11,T=18,U=27; all bars, baseline, value numbers and category labels must fit fully inside the panel without covering video above it. Display literal title DATA UPDATE at the top throughout. If animated, reach final values within the first second and hold them.",
+    "question_origin": "new_frozen_program_layout_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 1.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.88,
+            0.6
+          ]
+        },
+        {
+          "output_seconds": 6.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 7.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.88,
+            0.6
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "evaluation_role": "form_validation_v6"
+  }
+]

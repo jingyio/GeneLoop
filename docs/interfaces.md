@@ -1,5 +1,15 @@
 # DeepSeek Harless：场景、Motif 和 Harness 的接口
 
+## Motif 参数编译与匹配清理（2026-10-30）
+
+`trace_compiler.compile_read_motif` 与 `edge_compiler.compile_witnessed_edge_motif` 不再要求训练中的参数来源值至少有两种。不同任务可以返回同一资料句柄；编译仍按逐条来源证据与参数相等关系建立动态绑定，不将观察值固化为常量。独立任务支持、留出认证、工具契约及在线检查沿用现有实现，无新增配置或 IR 字段。此修改不涉及 Paper Script 编译、沙箱认证或其输入依赖检查。
+
+`proposeNext(options)` 保留单建议入口，内部委托 `proposeReadyBatch({...options,maxBatch:1})`，不再维护另一套匹配及分差算法。公共匹配历史由当前任务的会话拦截器持有，不再写入、比较重复的 `inputVersion` 标签；直接调用匹配辅助函数的调用者须提供该任务自己的历史。任务 `input_version`、来源版本、schema、参数绑定和实际结果核验继续生效。通用 MCP 插件移除未参与批次选择的 `SSS_MOTIF_MIN_MARGIN` 读取；Script Motif 自己的 `minMargin` 配置不变。
+
+`paper-web-v33` / `ppt-master-v30` 为当前注册的兼容导出，旧库保留。使用当前导出器重导出一致性、IR/manifest/task/schema/来源证据逐字节一致及新包实际加载检查更新当前源码绑定；这不是新训练、原始轨迹重放或质量晋级。范围与验证见 [清理记录](experiments/motif-matching-cleanup-20261030-v1.md)。
+
+File 公共种子的历史 `runtime_source` 作为来源记录保留，安装不再要求它与当前整份源码快照相同。Python 安装路径使用已有 `policy_current()` 核对当前工具契约与执行版本；TypeScript 验证发布载荷与当前注册表源码绑定，实际接管仍核对任务的工具契约、执行版本和权限。证书及旧库载荷不改写。
+
 ## 不限额Web与模型容量（2026-10-20）
 
 正式DeepSeek通道按请求头绑定原生Session，账号内独立对话和独立场景可并行，不设账号级数量上限。费用、请求次数和应用输出cap为null时保持不限；同一对话的幂等、运行/取消及来源校验仍逐任务隔离。DeepSeek请求显式传393216容量，不能省略max_tokens而回到8K默认；显式有限诊断cap仍有效。
@@ -1180,3 +1190,18 @@ TypeScript runtime 核对账号／Task、输入类型和版本、输出授权及
 独立脚本认证器新增可选 `certification.receipt_protocol: "bounded_zlib_v1"`。当前来源及独立输入均须通过明文／压缩完整回执一致性校验。Runtime 只在 `compactContext:true` 与该认证标记同时成立时使用 `script_motif_envelope`，`encoding: "zlib_base64_v1"`、base64 `payload` 和解码字节 `sha256`；字段集合严格校验，payload最多48,000字符、解码最多256,000字节，原stdout16,000字节上限不变。
 
 该信封只用于传输。解码后仍检查当前call、session授权、nonce、程序、输入版本和输出摘要；模型收到完整可读stdout，不能为了缩短上下文保留base64。旧明文回执仍支持；既有代码锁不得跳过，冻结库迁移须重新执行认证。显式cache及HTTP demand协议不变。不包含中间集合或关系学习，不产生语义质量证明。见[独立修复记录](experiments/script-receipt-transport-20261023-v1.md)。
+# 参数化程序与复用形式外环（实验入口）
+
+`source_program_compiler.py`输出 `parameterized_source_program_v1` 与 `source_program_library_v1`。模板只有一个JSON参数插入点；程序身份覆盖语言、模板和参数schema，另存正常模型调用及来源渲染证据。`source_program_runtime.ts`是实例化和任务开始时策略解析入口；MCP复用现有场景的沙箱/写入/渲染，不执行任意模板求值，也不返回旧产物。此实验的MCP桥接仍依赖Python。
+
+`reuse_form_rsi.py`的形式字段为representation、catalog_format、tool_naming、parameter_binding、program_evidence、library_scope、agent_instruction、compiler_instruction。提案、实际配对测量、晋级判定、不可变代次和latest绑定父策略及同一已学库。`scripts/propose-reuse-form.py`只提出候选，`scripts/reuse-form-rsi.py`检查并记录接受/拒绝；`evolve_forms.py`运行冻结有限对照并选择合格候选。新任务冻结一代策略，下一次编译消费其compiler_instruction。成本缺失不能当零；冷学习/探索与前向执行收益分别记录。
+
+`library_scope`默认`all`；`lexical_top1`由TypeScript对当前任务与已学程序描述/参数名做通用TF-IDF余弦检索，仅暴露最高词项重合的程序，零重合保留全库。此分数不是语义置信度，不授权执行，也不修改普通生成工具。Python入口和MCP调用同一TS选择器，`effective.json`保存库全摘要和实际可见程序ID；库本身及源码不因展示范围改变。该方式目前是有限形式空间中的实验候选，不是固定视频类别路由。
+
+冻结计划可共享一个物理基线并用`baseline_form`令所有条件使用相同Agent策略；实际工具接口仍是被测变量。普通视频基线注册8个原生工具，目录形式增加2个接口，类型化形式仅增加学习库工具，不重复广告目录API。预筛不合格候选保留完整运行及费用，不把未审阅算通过。`post_publication`显式配置新的后继任务，`continue_form.py`实际加载发布策略、运行并审阅、学习普通基线源码、认证下一候选并提出下一形式；后继候选不凭训练数据发布。
+
+后继形式反思读取已发布库与新认证程序合成的候选池，保留库父摘要/代次；旧发布池不随学习变动。可选`review_mode=external_selected_frames`与`review_protocol`固定外部原始帧复核；缺少记录暂停发布，记录须绑定当前任务/视频/协议摘要，显式媒体失败仍拒绝。后继任务可使用同样配置。这些成功递归及外部复核分支已实现并局部回归，当前没有真实成功发布证据，不能称为已验收能力。
+
+`inspect_render`按`floor(seconds*fps)`选择明确帧，保持原分辨率并返回`selected_output_frames`实际帧号/时点；验证时长取视频帧数/fps，排除AAC尾部。审阅使用该事实和独立源帧核验，不以显示缩放坐标代替视频坐标。默认预览入口和外环未显式`--call-model`时不发付费调用。
+
+实际命令和质量范围见[视频程序复用入口](../scenarios/remotion_edit/structured/README.md)。机制实现和实测效果状态见[实验记录](experiments/remotion-program-rsi-20261030-v1.md)。
