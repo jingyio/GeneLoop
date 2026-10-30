@@ -1,0 +1,368 @@
+[
+  {
+    "id": "t01_trim_title",
+    "width": 640,
+    "height": 360,
+    "frames": 120,
+    "fps": 30,
+    "instruction": "剪一个4秒横版开场。从video.mp4的1秒开始取4秒，保留原声但音量0.35。上方加标题 FIELD NOTES，前0.5秒淡入，末0.5秒淡出；右下显示2026。"
+  },
+  {
+    "id": "t02_montage",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "instruction": "制作6秒三段蒙太奇：video.mp4的0–2秒、video-10s.mp4的3–5秒、video.mp4的3–5秒依次硬切。分别标注 OBSERVE / COMPARE / REPLAY。所有素材静音，audio.mp3作背景，音量0.2，末1秒淡出。"
+  },
+  {
+    "id": "t03_vertical",
+    "width": 360,
+    "height": 640,
+    "frames": 150,
+    "fps": 30,
+    "instruction": "将video-10s.mp4的2–7秒裁成9:16竖屏，居中cover，不拉伸。全程顶部显示 QUICK LOOK，底部前2.5秒显示 Frame the moment，后2.5秒显示 Keep the detail；底部加随时间增长的青色进度条，原声静音。"
+  },
+  {
+    "id": "t04_split_screen",
+    "width": 640,
+    "height": 360,
+    "frames": 150,
+    "fps": 30,
+    "instruction": "制作5秒左右分屏对照。左侧播放video.mp4从0秒起，右侧播放video-10s.mp4从2秒起，两侧cover但不拉伸，中间白色细分隔线。左上标 ORIGINAL，右上标 ALTERNATE，全程静音。"
+  },
+  {
+    "id": "t05_captions",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "instruction": "video-10s.mp4从0秒起剪6秒，静音，三条准确计时的字幕：0–2秒 A small beginning；2–4秒 A different perspective；4–6秒 A clear next step。字幕居中底部黑色半透明底，上方显示 DEMO CUT；不要调用语音识别，字幕文字已经给定。"
+  },
+  {
+    "id": "t06_speed",
+    "width": 640,
+    "height": 360,
+    "frames": 120,
+    "fps": 30,
+    "instruction": "制作4秒速度对比：前2秒video.mp4从0秒起以正常速度播放，后2秒video-10s.mp4从2秒起以2倍速度播放（消费4秒源）。前后分别显示 1x / 2x，转场为硬切，源静音，背景audio.mp3音量0.15。"
+  },
+  {
+    "id": "t07_pip",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "instruction": "制作6秒画中画：video-10s.mp4从1秒起作为cover背景，video.mp4从0秒起作为右下角宽200高112的画中画（白色边框），画中画仅在1–5秒可见。左上全程显示 TWO VIEWS，所有视频静音。"
+  },
+  {
+    "id": "t08_crossfade",
+    "width": 640,
+    "height": 360,
+    "frames": 165,
+    "fps": 30,
+    "instruction": "制作5.5秒双镜头交叉淡化：video.mp4的0–3秒和video-10s.mp4的2–5秒，重叠0.5秒，输出总计5.5秒。全程静音；前段左下显示 START，后段左下显示 CONTINUE。使用frame驱动的opacity或@remotion/transitions。"
+  },
+  {
+    "id": "t09_square_brand",
+    "width": 480,
+    "height": 480,
+    "frames": 150,
+    "fps": 30,
+    "instruction": "制作5秒方形社媒片：前1秒深蓝纯色标题卡 MOTION LAB；中间3秒video-10s.mp4从3秒起cover并静音，左上角持续显示 LAB；末1秒深蓝结束卡 SEE YOU NEXT TIME。audio.mp3贯穿，0.5秒淡入淡出，音量最高0.2。"
+  },
+  {
+    "id": "t10_data_overlay",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "instruction": "制作6秒实验演示：video-10s.mp4从0秒起背景静音，下方绘制半透明深蓝数据面板，三柱数值12、19、27，标签A、B、C；柱高在前2秒从0增长到对应值。标题 OBSERVED COUNTS；右上角按0–6秒显示当前秒数一位小数。数值只是给定演示数据，不生成科研结论。"
+  },
+  {
+    "id": "t11_mixed_fps_montage",
+    "family": "montage",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "partition": "train",
+    "instruction": "制作6秒三段蒙太奇：依次取bunny_a_24.mp4的1–3秒、bunny_b_30.mp4的2–4秒、bunny_c_60.mp4的3–5秒，每段2秒硬切，三个源均静音。左下分别显示SCENE A、SCENE B、SCENE C；右上全程显示MIXED FPS。输出起点立即有画面。"
+  },
+  {
+    "id": "t12_chapter_pair",
+    "family": "montage",
+    "width": 640,
+    "height": 360,
+    "frames": 144,
+    "fps": 24,
+    "assets": [
+      "bunny_c_60.mp4",
+      "bunny_a_24.mp4",
+      "audio.mp3"
+    ],
+    "partition": "train",
+    "instruction": "制作6秒章节片：前3秒播放bunny_c_60.mp4的4–7秒，后3秒播放bunny_a_24.mp4的5–8秒，均静音，硬切；每段开始的前0.75秒在左侧淡入章节文字01 ACTION、02 BREATH。audio.mp3全程音量0.12，结尾0.5秒淡出。源帧率不同，按秒定位。"
+  },
+  {
+    "id": "t13_four_shots",
+    "family": "montage",
+    "width": 640,
+    "height": 360,
+    "frames": 240,
+    "fps": 30,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4",
+      "greenscreen.mp4"
+    ],
+    "partition": "certification",
+    "instruction": "制作8秒四镜头，每段2秒硬切：bunny_a_24.mp4的0–2秒、bunny_b_30.mp4的3–5秒、bunny_c_60.mp4的6–8秒、greenscreen.mp4的0–2秒。均静音、contain保持全图、黑色补边，底部依次显示ONE、TWO、THREE、FOUR。绿色素材保留其原背景。"
+  },
+  {
+    "id": "t14_intro_broll_outro",
+    "family": "montage",
+    "width": 640,
+    "height": 360,
+    "frames": 200,
+    "fps": 25,
+    "assets": [
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4",
+      "audio.mp3"
+    ],
+    "partition": "evaluation",
+    "instruction": "制作8秒短片：0–1秒深蓝标题卡SMALL STORIES；1–4秒播放bunny_b_30.mp4的1–4秒；4–7秒播放bunny_c_60.mp4的2–5秒；7–8秒深蓝结束卡BLENDER FOUNDATION / DEMO EDIT。源均静音，audio.mp3作背景0.15，首尾0.5秒淡入淡出。"
+  },
+  {
+    "id": "t15_vertical_pan",
+    "family": "framing",
+    "width": 360,
+    "height": 640,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_a_24.mp4"
+    ],
+    "partition": "train",
+    "instruction": "取bunny_a_24.mp4的2–8秒制作6秒竖屏片，cover填满且不拉伸；objectPosition从左侧平滑移动到右侧，首尾各保留0.5秒静止，中间5秒移动。顶部全程显示A NEW ANGLE；底部白色进度线随0–6秒增长。源静音，开始不能黑屏。"
+  },
+  {
+    "id": "t16_square_contain",
+    "family": "framing",
+    "width": 480,
+    "height": 480,
+    "frames": 144,
+    "fps": 24,
+    "assets": [
+      "bunny_c_60.mp4"
+    ],
+    "partition": "train",
+    "instruction": "取bunny_c_60.mp4的1–7秒制作6秒方形片。视频保持完整画幅contain，上下为深蓝留边；顶部留边显示FULL FRAME，底部留边显示SOURCE C。全程静音，文字不能盖在视频内容区域。"
+  },
+  {
+    "id": "t17_three_columns",
+    "family": "framing",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "partition": "certification",
+    "instruction": "制作6秒三列同时播放对照：左bunny_a_24.mp4从0秒、中bunny_b_30.mp4从2秒、右bunny_c_60.mp4从4秒，均cover各自列且不拉伸、静音、输出第0帧立即可见；白色细分隔线，顶部标签24 FPS、30 FPS、60 FPS，标签指源帧率而非输出帧率。"
+  },
+  {
+    "id": "t18_pip_timeline",
+    "family": "framing",
+    "width": 640,
+    "height": 360,
+    "frames": 240,
+    "fps": 30,
+    "assets": [
+      "bunny_b_30.mp4",
+      "bunny_a_24.mp4"
+    ],
+    "partition": "evaluation",
+    "instruction": "制作8秒画中画：背景bunny_b_30.mp4从源1秒开始，输出0–8秒全程cover可见且静音；右下角bunny_a_24.mp4从源2秒开始的4秒只在输出2–6秒可见，大小200×112、白边。左上全程显示MAIN + DETAIL；不得把源裁剪1秒误作输出延迟1秒。"
+  },
+  {
+    "id": "t19_long_crossfade",
+    "family": "timing",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "partition": "train",
+    "instruction": "制作总计6秒的双镜头交叉淡化：bunny_a_24.mp4的0–3.5秒从输出0秒开始；bunny_c_60.mp4的4–7.5秒从输出2.5秒开始。重叠输出2.5–3.5秒整整1秒，前景opacity从0变1。两源静音，前后段左下分别显示BEFORE、AFTER。"
+  },
+  {
+    "id": "t20_freeze_detail",
+    "family": "timing",
+    "width": 640,
+    "height": 360,
+    "frames": 144,
+    "fps": 24,
+    "assets": [
+      "bunny_b_30.mp4"
+    ],
+    "partition": "train",
+    "instruction": "制作6秒冻结演示：输出0–2秒播放bunny_b_30.mp4源1–3秒；输出2–3秒冻结源第3秒附近的同一帧并显示HOLD；输出3–6秒继续播放源3–6秒。全程静音，冻结仅1秒；左上全程显示PAUSE TO NOTICE。"
+  },
+  {
+    "id": "t21_slow_fast",
+    "family": "timing",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_c_60.mp4",
+      "audio.mp3"
+    ],
+    "partition": "certification",
+    "instruction": "制作6秒速度片：前3秒取bunny_a_24.mp4从源1秒开始，以0.5倍速消费1.5秒源；后3秒取bunny_c_60.mp4从源2秒开始，以1.5倍速消费4.5秒源。源均静音，分别标0.5x和1.5x，背景audio.mp3音量0.1。"
+  },
+  {
+    "id": "t22_repeat_then_move",
+    "family": "timing",
+    "width": 640,
+    "height": 360,
+    "frames": 144,
+    "fps": 24,
+    "assets": [
+      "bunny_c_60.mp4",
+      "bunny_b_30.mp4"
+    ],
+    "partition": "evaluation",
+    "instruction": "制作6秒节奏演示：前3秒将bunny_c_60.mp4的源1–2秒片段完整重复3遍，每遍1秒；后3秒播放bunny_b_30.mp4源3–6秒。均静音。重复段显示REPEAT，后段显示MOVE ON；右下按输出时间显示秒数，不能显示源时间当作输出时间。"
+  },
+  {
+    "id": "t23_music_ducking",
+    "family": "audio",
+    "width": 640,
+    "height": 360,
+    "frames": 240,
+    "fps": 30,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "audio.mp3"
+    ],
+    "partition": "train",
+    "instruction": "制作8秒双镜头：前4秒bunny_a_24.mp4源1–5秒，后4秒bunny_b_30.mp4源4–8秒，硬切。源音量均0.4；audio.mp3全程背景，输出0–2和6–8秒音量0.2，2–6秒降到0.05，各用0.25秒平滑过渡。屏幕下方显示NORMAL / DUCKED / NORMAL对应三个输出区间，不能仅写说明不实际混音。"
+  },
+  {
+    "id": "t24_inset_with_score",
+    "family": "audio",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_b_30.mp4",
+      "greenscreen.mp4",
+      "audio.mp3"
+    ],
+    "partition": "train",
+    "instruction": "制作6秒配乐片：bunny_b_30.mp4源0–6秒作静音背景，greenscreen.mp4源0–2秒以160×90放在右上，仅输出2–4秒显示，保持原绿色背景且静音。audio.mp3背景最高0.18，前1秒从0渐入、末1秒渐出。左下全程显示LAYERED SCORE。"
+  },
+  {
+    "id": "t25_audio_bridge",
+    "family": "audio",
+    "width": 640,
+    "height": 360,
+    "frames": 144,
+    "fps": 24,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "partition": "certification",
+    "instruction": "制作6秒声音桥接演示：前3秒bunny_a_24.mp4源2–5秒，后3秒bunny_c_60.mp4源1–4秒，画面在3秒硬切。bunny_a_24.mp4保留原声0.5且输出2–3秒线性淡至0；bunny_c_60.mp4静音。前后分别标SOUND ON、SILENT。必须输出音轨，后半段音频应为静音，不延长第一个视频画面。"
+  },
+  {
+    "id": "t26_silent_open_music",
+    "family": "audio",
+    "width": 480,
+    "height": 480,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_c_60.mp4",
+      "audio.mp3"
+    ],
+    "partition": "evaluation",
+    "instruction": "制作6秒方形片，bunny_c_60.mp4源2–8秒cover且静音。输出前1.5秒无配乐，1.5–2秒让audio.mp3从0淡入0.2，5–6秒淡出到0。顶部显示LISTEN CLOSELY；底部0–1.5秒显示SILENT INTRO，1.5–6秒显示MUSIC ENTERS。"
+  },
+  {
+    "id": "t27_timed_story_captions",
+    "family": "graphics",
+    "width": 640,
+    "height": 360,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_a_24.mp4"
+    ],
+    "partition": "train",
+    "instruction": "制作6秒字幕片：bunny_a_24.mp4源3–9秒全程静音cover。底部字幕依输出时间0–1.5秒First look、1.5–3秒Closer still、3–4.5秒A small detail、4.5–6秒The story continues，无间隙无重叠；顶部全片显示STORY NOTES。字幕黑色半透明底，不能把顶部标题放进底部字幕框。"
+  },
+  {
+    "id": "t28_metric_panel",
+    "family": "graphics",
+    "width": 640,
+    "height": 360,
+    "frames": 192,
+    "fps": 24,
+    "assets": [
+      "bunny_b_30.mp4"
+    ],
+    "partition": "train",
+    "instruction": "制作8秒数据演示：bunny_b_30.mp4源1–9秒静音背景，下方35%高度为半透明深蓝面板。三柱标P、Q、R，值9、16、25，前2秒柱高由0增长到目标并固定；标题GIVEN EXAMPLE DATA，右上为输出经过秒数。数据只是题目给定演示，不生成科研结论。"
+  },
+  {
+    "id": "t29_vertical_campaign",
+    "family": "graphics",
+    "width": 360,
+    "height": 640,
+    "frames": 180,
+    "fps": 30,
+    "assets": [
+      "bunny_c_60.mp4",
+      "audio.mp3"
+    ],
+    "partition": "certification",
+    "instruction": "制作6秒竖屏活动片：前0.75秒深蓝标题卡LOOK AGAIN；中间4.5秒播放bunny_c_60.mp4源2–6.5秒，居中cover且静音；末0.75秒深蓝结束卡EXPLORE MORE。画面左右各留至少24像素文字安全边界，audio.mp30.12贯穿，首尾0.5秒淡入淡出。"
+  },
+  {
+    "id": "t30_four_panel_clock",
+    "family": "graphics",
+    "width": 640,
+    "height": 360,
+    "frames": 144,
+    "fps": 24,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4",
+      "greenscreen.mp4"
+    ],
+    "partition": "evaluation",
+    "instruction": "制作6秒四宫格同时播放：左上bunny_a_24.mp4源1–7秒；右上bunny_b_30.mp4源2–8秒；左下bunny_c_60.mp4源3–9秒；右下将greenscreen.mp4源0–2秒重复3遍。四格cover不拉伸、全静音、白色分隔线，每格左上分别标A、B、C、D；全片右下角叠加输出秒数，0秒立即四格都有画面。"
+  }
+]

@@ -52,13 +52,14 @@ test('approved uploaded source pin permits only a versioned handle read', async 
     intent:'Review uploaded LaTeX',input_version:'scope-a',bindings:{},
     source_versions:{[pin]:'@observed',[read]:'@from_anchor'}},manifest);
   const row={name:pin,callId:'model-pin',ok:true,arguments:{main:'paper.tex'},
-    output:{source_id:source,version_sha256:version},sourceVersion:version,inputVersion:'scope-a'};
+    output:{source_id:source,version_sha256:version},sourceVersion:version};
   const args={manifest,task,history:[row],availableTools:new Map([[read,offered(read,['source_id'])]]),
     similarity:async()=>{throw Error('closed read must not call embeddings');},minSimilarity:0.8,minMargin:0.1};
   const candidates=await proposeReadyBatch(args);
   assert.equal(candidates.length,1);
   assert.equal(candidates[0].selection_basis,'closed_source_read');
   assert.deepEqual(candidates[0].arguments,{source_id:source});
+  assert.deepEqual(await proposeNext(args),candidates[0]);
   assert.deepEqual(await proposeReadyBatch({...args,history:[{...row,output:{...row.output,version_sha256:'0'.repeat(64)}}]}),[]);
   assert.deepEqual(await proposeReadyBatch({...args,history:[{...row,output:{...row.output,source_id:'other'}}]}),[]);
   const other='mcp__paper_checks__pin_document';

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "t34_two_views",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 180,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "制作6秒双镜头：前3秒bunny_a_24.mp4源4–7秒，后3秒bunny_c_60.mp4源0–3秒，静音、cover、3秒硬切。顶部全程TWO VIEWS，底部依次SOURCE A和SOURCE C，开头立即有画面。本轮是同题局部恢复诊断，当前源码原样来自本题v2 typed失败运行，不是新的独立任务。先读取当前源码，获得实际渲染错误，再做必要的最小修复、渲染并检查真实像素；没有视频不能宣布交付。",
+    "arm_order": [
+      "typed"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 4.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.82,
+            0.65
+          ]
+        },
+        {
+          "output_seconds": 2.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 6.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.82,
+            0.65
+          ]
+        },
+        {
+          "output_seconds": 3.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 0.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.82,
+            0.65
+          ]
+        },
+        {
+          "output_seconds": 5.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 2.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.82,
+            0.65
+          ]
+        }
+      ],
+      "full_quality": "requires_agent_review_not_human_blind"
+    },
+    "prompt_protocol": "semantic-timing-v2",
+    "question_origin": "same_question_targeted_partial_recovery"
+  }
+]

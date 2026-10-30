@@ -103,7 +103,7 @@ export function loopbackSimilarity(endpoint, model, fetcher = fetch) {
 
 /** Injectable for protocol tests; the production entry point is apply(). */
 export function createOnlineInterceptor({ manifest, task, similarity, mode = 'shadow',
-                                           minSimilarity = 0.8, minMargin = 0.1,
+                                           minSimilarity = 0.8,
                                            audit = () => {}, closedContinuation = () => false }) {
   validateOnlineManifest(manifest);
   const parsedTask = parseStructuredTask(task, manifest);
@@ -155,8 +155,7 @@ export function createOnlineInterceptor({ manifest, task, similarity, mode = 'sh
         content_kinds: result?.content?.map?.(block => block?.type ?? null),
       } } : {}) });
     current.history.push({ name: exec.name, callId: exec.callId, ok,
-      barrier, arguments: exec.arguments, output, sourceVersion: version,
-      inputVersion: parsedTask.input_version });
+      barrier, arguments: exec.arguments, output, sourceVersion: version });
     current.history.splice(0, Math.max(0, current.history.length - historyCapacity));
     if (pending) {
       const verified = ok && exec.name === pending.tool &&
@@ -198,7 +197,7 @@ export function createOnlineInterceptor({ manifest, task, similarity, mode = 'sh
     try {
       proposals = await proposeReadyBatch({ manifest, task: parsedTask,
         history: current.history, availableTools, similarity,
-        minSimilarity, minMargin, usedPrefixes: current.usedPrefixes, closedContinuation });
+        minSimilarity, usedPrefixes: current.usedPrefixes, closedContinuation });
     } catch (error) {
       audit({ kind: 'motif_deferred', session_id: sessionId,
         reason: error?.name ?? 'candidate_error' });
@@ -271,7 +270,6 @@ export function installOnlineMotif(ctx, { similarity: suppliedSimilarity,
   }
   const interceptor = createOnlineInterceptor({ manifest, task, similarity, mode, closedContinuation,
     minSimilarity: Number(process.env.SSS_MOTIF_MIN_SIMILARITY ?? 0.8),
-    minMargin: Number(process.env.SSS_MOTIF_MIN_MARGIN ?? 0.1),
     audit: (row) => privateAudit(process.cwd(), row.session_id, row) });
   const audit = (kind, reason) => privateAudit(process.cwd(), task.session_id,
     { kind, session_id: task.session_id, reason });

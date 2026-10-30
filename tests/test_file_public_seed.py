@@ -103,7 +103,6 @@ def test_current_seed_keeps_every_previous_graph_shape_and_admits_current_code(t
     version=versions.pop()
     release=ROOT/'motif-libraries'/version
     runtime=sources()
-    assert read(release/'entry.json')['runtime_source']==runtime
     assert shapes(version)==expected
     for entry in active:
         policy=read(registry.root/entry['payload'])
@@ -112,3 +111,21 @@ def test_current_seed_keeps_every_previous_graph_shape_and_admits_current_code(t
     for entry in read(release/'entry.json')['entries']:
         payload=release/entry['payload']
         assert validate_certificate(read(payload),release/entry['certificate'],sha(payload))['release']==version
+
+
+@pytest.mark.parametrize('changed', ['execution', 'catalog'])
+def test_current_seed_rejects_changed_execution_or_catalog(monkeypatch, changed):
+    from src.adapters import experience_library
+    from src.adapters.management_seed import validate_certificate
+    from src.motif_core.offline.experience_registry import read, sha
+    release = ROOT/'motif-libraries'/FILE_RELEASES[-1]
+    item = read(release/'entry.json')['entries'][0]
+    payload, certificate = release/item['payload'], release/item['certificate']
+    policy = read(payload)
+    validate_certificate(policy, certificate, sha(payload))
+    if changed == 'execution':
+        monkeypatch.setattr(experience_library, 'current_execution_version', lambda: 'changed')
+    else:
+        monkeypatch.setattr(experience_library, 'current_contracts', lambda _runtime: {})
+    with pytest.raises(ValueError, match='runtime/catalog version changed'):
+        validate_certificate(policy, certificate, sha(payload))

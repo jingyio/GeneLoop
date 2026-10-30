@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "parent_source": {
+    "url": "https://remotion.media/BigBuckBunny.mp4",
+    "bytes": 158008374,
+    "sha256": "1cadc5e09cbb81044e256f9fc67090fcf86d7a596145eb615844fe15341451e6",
+    "credit": "Big Buck Bunny, Blender Foundation",
+    "documentation": "https://www.remotion.dev/docs/offthreadvideo"
+  },
+  "clips": [
+    {
+      "name": "bunny_a_24.mp4",
+      "url": "https://remotion.media/BigBuckBunny.mp4",
+      "sha256": "e4b7e17411b2dda42f234ce3de6adf281db0966809e69f42bc8ac02c7c57f54b",
+      "bytes": 1190817,
+      "parent_sha256": "1cadc5e09cbb81044e256f9fc67090fcf86d7a596145eb615844fe15341451e6",
+      "parent_segment_seconds": [
+        20,
+        32
+      ],
+      "derived": true,
+      "output_fps": 24,
+      "width": 640,
+      "height": 360,
+      "credit": "Big Buck Bunny, Blender Foundation; Remotion official example source",
+      "independence": "different scene excerpt from the same film, not independent filming"
+    },
+    {
+      "name": "bunny_b_30.mp4",
+      "url": "https://remotion.media/BigBuckBunny.mp4",
+      "sha256": "8d7e8161c529e0a98ff2bd46059946db5da7e5fcf42aeecff3d481b4fd628ce5",
+      "bytes": 719515,
+      "parent_sha256": "1cadc5e09cbb81044e256f9fc67090fcf86d7a596145eb615844fe15341451e6",
+      "parent_segment_seconds": [
+        80,
+        92
+      ],
+      "derived": true,
+      "output_fps": 30,
+      "width": 640,
+      "height": 360,
+      "credit": "Big Buck Bunny, Blender Foundation; Remotion official example source",
+      "independence": "different scene excerpt from the same film, not independent filming"
+    },
+    {
+      "name": "bunny_c_60.mp4",
+      "url": "https://remotion.media/BigBuckBunny.mp4",
+      "sha256": "ddc8a2750dcd3aea00c927ca0d186a2dc134af7bd59a8c1fbef2665a93c9e97a",
+      "bytes": 791209,
+      "parent_sha256": "1cadc5e09cbb81044e256f9fc67090fcf86d7a596145eb615844fe15341451e6",
+      "parent_segment_seconds": [
+        150,
+        162
+      ],
+      "derived": true,
+      "output_fps": 60,
+      "width": 640,
+      "height": 360,
+      "credit": "Big Buck Bunny, Blender Foundation; Remotion official example source",
+      "independence": "different scene excerpt from the same film, not independent filming"
+    },
+    {
+      "name": "greenscreen.mp4",
+      "url": "https://remotion.media/greenscreen.mp4",
+      "sha256": "a53e1975562b99e423ed2488bfea1b4fe2dc92c25d34dd3c86db38923e80903f",
+      "bytes": 888217,
+      "derived": false,
+      "credit": "Remotion public test media"
+    }
+  ],
+  "scope": "Three excerpts from one film plus public fixtures; not independent filming projects."
+}

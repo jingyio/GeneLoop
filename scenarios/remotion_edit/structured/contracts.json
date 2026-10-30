@@ -1,0 +1,34 @@
+{
+  "mcp__remotion__pin_asset": {
+    "required_params": [
+      "name"
+    ],
+    "read_only": true,
+    "output_fields": [
+      "source_id",
+      "source_version",
+      "name",
+      "bytes"
+    ],
+    "description": "选择当前任务文件并固定其版本句柄；素材选择由模型决定。",
+    "replay_stable": true
+  },
+  "mcp__remotion__probe_media": {
+    "required_params": [
+      "source_id"
+    ],
+    "read_only": true,
+    "output_fields": [
+      "source_id",
+      "source_version",
+      "name",
+      "duration_seconds",
+      "streams"
+    ],
+    "provenance_params": [
+      "source_id"
+    ],
+    "description": "读取已固定素材的实际媒体属性；不选择素材、不编辑。",
+    "replay_stable": true
+  }
+}

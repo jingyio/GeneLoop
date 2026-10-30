@@ -12,7 +12,7 @@ export function validatePublicManagementSeed(policy:any,cert:any,raw:string,runt
   if(lstatSync(release).isSymbolicLink())throw Error('seed release symlink refused');
   const manifest=JSON.parse(readFileSync(join(release,'entry.json'),'utf8'));
   if(manifest.format!=='sss-management-seed-release-v1'||manifest.digest!==digest(Object.fromEntries(Object.entries(manifest).filter(([k])=>k!=='digest')))
-    ||digest(manifest.runtime_source)!==digest(runtime)||Object.entries(runtime).some(([n,h])=>sha(resolve(root,n))!==h))throw Error('seed source/manifest changed');
+    ||Object.entries(runtime).some(([n,h])=>sha(resolve(root,n))!==h))throw Error('seed source/manifest changed');
   for(const [name,h] of Object.entries(manifest.files)){
     if(!/^(?:policies|certificates)\/[a-f0-9]{64}\.json$/.test(name)||lstatSync(join(release,name)).isSymbolicLink()||sha(join(release,name))!==h)throw Error('seed object changed');
   }

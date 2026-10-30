@@ -1,5 +1,7 @@
 # GeneLoop：Motif × DeepSeek Harness × 自定义 MCP
 
+新增[视频程序复用与复用形式RSI实验](scenarios/remotion_edit/structured/README.md)：从正常视频工具轨迹学习参数化TSX，并让目录/类型化工具、调用策略和下一轮编译方式进入可验证的外环。普通基线保留同样的源码写入与渲染融合能力；当前实现及实际效果边界见[实验记录](docs/experiments/remotion-program-rsi-20261030-v1.md)，尚未部署正式服务。
+
 新增独立的 Artifact Motif 实验：从真实任务中学到可换输入的 Python 计算／排版程序，经独立输入认证后，通过原生 Bash 复用并保留逐次回执。它仍是显式启用的实验入口，不替换正式服务或默认库；费用下降与反例一起记录。见[接口与复现](docs/interfaces.md#artifact-motif-独立实验接口2026-10-21)和[三场景成本学习](docs/experiments/three-scene-motif-cost-learning-20261021.md)。
 
 管理员可在“设置 → 账户与安全 → 邀请同学”批量生成 1–20 个邀请码（默认 5 个）。邀请码永久有效、每码注册一个账号后失效；支持逐个或全部复制，关闭页面不会使未用码失效。生成结果仅在当前页面显示，请离开前复制保存。

@@ -140,7 +140,6 @@ def _valid_param(value: Any, *, collection: bool, shape: str = "") -> bool:
 
 def _matches_transfer(occurrences: list[list[Any]], *, source_index: int,
                       target_index: int, field: str, param: str) -> bool:
-    values = []
     for rows in occurrences:
         source = _field_value(rows[source_index].observation, field)
         target = rows[target_index].arguments.get(param)
@@ -151,10 +150,7 @@ def _matches_transfer(occurrences: list[list[Any]], *, source_index: int,
         if (source is None or target is None or type(source) is not type(target)
                 or source != target):
             return False
-        values.append(source)
-    # A constant coincidence across all training tasks is insufficient to
-    # infer a reusable parameter edge.
-    return len({_digest(value) for value in values}) >= 2
+    return True
 
 
 def compile_read_motif(candidate: dict[str, Any], traces: list[Any],

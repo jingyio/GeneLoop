@@ -96,7 +96,9 @@ class WitnessedEdgeMotifTests(unittest.TestCase):
 
     def test_interleaved_real_edge_compiles_certifies_and_executes(self):
         self.assertEqual(count_safe_edge_witnesses(CANDIDATE, trace("A"), CONTRACTS), 1)
-        compiled = compile_witnessed_edge_motif(CANDIDATE, [trace("A"), trace("B")], CONTRACTS)
+        first = trace("A")
+        second = DshTrace("B", first.records, first.segments, "task-B")
+        compiled = compile_witnessed_edge_motif(CANDIDATE, [first, second], CONTRACTS)
         self.assertEqual(compiled["mining_basis"], "witnessed_parameter_edge")
         artifact = certify_witnessed_edge_motif(compiled, trace("C"), CONTRACTS)
         calls = []

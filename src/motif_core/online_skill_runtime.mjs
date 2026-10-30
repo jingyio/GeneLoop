@@ -371,61 +371,8 @@ function witnessedPrefix(artifact, prefix, task, manifest) {
   return true;
 }
 
-export async function proposeNext({ manifest, task, history, availableTools,
-                                    similarity, minSimilarity, minMargin }) {
-  if (manifest.artifacts.some(a => a.continuation_policy_digest !== undefined)) {
-    return (await proposeReadyBatch({ manifest, task, history, availableTools,
-      similarity, minSimilarity, minMargin, maxBatch: 1 }))[0] ?? null;
-  }
-  if (!history.length || typeof similarity !== 'function' ||
-      !(minSimilarity >= 0 && minSimilarity <= 1) ||
-      !(minMargin >= 0 && minMargin <= 1)) return null;
-  const candidates = [];
-  for (const artifact of manifest.artifacts) {
-    for (let length = Math.min(history.length, artifact.tools.length - 1);
-         length >= 1; length--) {
-      const prefix = history.slice(-length);
-      if (!prefix.every((row, index) => row.ok &&
-          row.name === artifact.tools[index] &&
-          !!manifest.version_fields[row.name] &&
-          !!task.source_versions[row.name] &&
-          row.inputVersion === task.input_version &&
-          row.sourceVersion === task.source_versions[row.name])) continue;
-      if (!witnessedPrefix(artifact, prefix, task, manifest)) continue;
-      const nextTool = artifact.tools[length];
-      const offered = availableTools.get(nextTool);
-      const required = manifest.contracts[nextTool].required_params;
-      if (!offeredSchemaMatches(availableTools, nextTool, manifest.contracts[nextTool],
-          manifest.tool_schema_hashes?.[nextTool])) {
-        continue;
-      }
-      const args = await bindNext(artifact, nextTool, prefix, task, manifest);
-      if (!args) continue;
-      candidates.push({ artifact, nextTool, args, length,
-        description: artifact.tools.slice(length)
-          .map((tool) => manifest.contracts[tool].description).join('\n') });
-      break;
-    }
-  }
-  if (!candidates.length) return null;
-  const query = `${task.intent}\nRecent tools: ${history.slice(-4).map((row) => row.name).join(', ')}`;
-  const scores = await similarity(query, candidates.map((row) => row.description));
-  if (!Array.isArray(scores) || scores.length !== candidates.length ||
-      scores.some((score) => typeof score !== 'number' || !Number.isFinite(score))) {
-    return null;
-  }
-  const ranked = candidates.map((row, index) => ({ ...row, similarity: scores[index],
-    score: scores[index] * 0.8 +
-      Math.min(row.artifact.supporting_task_count, 5) / 5 * 0.1 +
-      row.length / row.artifact.tools.length * 0.1 }))
-    .sort((a, b) => b.score - a.score || a.artifact.motif_id.localeCompare(b.artifact.motif_id));
-  const best = ranked[0];
-  if (best.similarity < minSimilarity ||
-      (ranked.length > 1 && best.score - ranked[1].score < minMargin)) return null;
-  return { motif_id: best.artifact.motif_id,
-    certified_digest: best.artifact.certified_digest,
-    tool: best.nextTool, arguments: best.args, score: best.score,
-    similarity: best.similarity, prefix_length: best.length };
+export async function proposeNext(options) {
+  return (await proposeReadyBatch({ ...options, maxBatch: 1 }))[0] ?? null;
 }
 
 const versionAllowed = (task, manifest, tool, value) => scalar(value) &&
@@ -464,7 +411,6 @@ function matchingPrefixes(artifact, history, length, task, manifest) {
       for (let index = after; index < history.length; index++) {
         const row = history[index];
         if (row.name === tool && row.ok &&
-            row.inputVersion === task.input_version &&
             manifest.version_fields[tool] &&
             versionAllowed(task, manifest, tool, row.sourceVersion) &&
             (manifest.contracts[tool].observed_anchor !== true ||
@@ -566,14 +512,13 @@ function sourceKindMatches(tool, prefix) {
 
 /** Find independent, provenance-bound continuations in interleaved tool history. */
 export async function proposeReadyBatch({ manifest, task, history, availableTools,
-                                         similarity, minSimilarity, minMargin,
+                                         similarity, minSimilarity,
                                          usedPrefixes = new Set(), maxBatch = 8,
                                          closedContinuation = () => false }) {
   const barrier = history.findLastIndex((row) => row.barrier === true);
   history = history.slice(barrier + 1);
   if (!history.length || typeof similarity !== 'function' ||
       !(minSimilarity >= 0 && minSimilarity <= 1) ||
-      !(minMargin >= 0 && minMargin <= 1) ||
       !Number.isSafeInteger(maxBatch) || maxBatch < 1 || maxBatch > 8) return [];
   const candidates = [];
   let codeAttempts = 0;
