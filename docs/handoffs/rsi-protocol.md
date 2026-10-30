@@ -1,13 +1,13 @@
 # F02 / 形式 RSI 当前交接
 
-- 更新时间与交接人：2026-10-31，Codex；用户授权夜间继续优化，早晨验收。
-- 目标与范围：补回未进入main的F02协议/优化代码，统一跨场景质量记录，将视频复用形式纳入更新生命周期，验证真实发布与后继消费。
-- 分支 / 基线：`codex/rsi-meta-integration-20261030`，远程main `26033884e8393b9e3aa6365801950710bf6f7cfd`；F02来源d12b826/ff3a6ce已在隔离分支恢复。PR115虽merged，其目标为F00分支，不能当已进入main。原Desktop工作区未覆盖。
-- 已完成：`quality_evaluation`、`rsi_quality.{py,ts}`；可选reuse_form版本/组件与reuse_form_revision；视频外环共同TypeScript更新核验、共享回执与Python/TS加载核验；按真实视觉证据筛选下一轮正常源码。
-- 已验证：定向83Python/41Node及后续29项通过；全量Python1616通过/235跳过；Node1424通过/15跳过/1个既有typed413并发EPIPE，单文件9项通过。rsi:check、smoke、motif:check通过，均无模型诊断。
-- 实验：`rsi-meta-overnight-20261030` 六对真实任务运行中；来源库v7含已认证面板修复（3帧MAE0），免费MCP10项通过。发布与递归结果尚待验收，不能提前记完成。完整边界见[实验记录](../experiments/rsi-meta-overnight-20261030.md)。
-- 配置与数据：V100私有BASE `.local/experiments/remotion-motivation-20261027-v1/`，新增 `rsi-meta-overnight-20261030/`；沿用ledger/requests/checkpoint，code2包SHA5cf4a72bf16701ba1bb7dcad6708053592575aa1cab117c3553336675de039bb。本地接续 `.local/rsi-meta-overnight-20261030/ACTIVE_WORK.md`。
-- 未完成：新成片像素复核、合格发布/新任务TS加载、后继编译认证与实际下一Meta；归档成本、PR及最终交接。通用F02冷净收益优化器尚未接管形式晋级目标，仍明确区分。
-- 接手下一步：1. 等有限12运行，先隐藏臂/费用复核原始帧；2. 从同计划继续发布/后继链，失败保留并定位；3. 闭合账本、同步交付、更新结论并提交PR供审核。
-- 权限与预算：用户2026-10-30明确授权夜间优化且预算充足，cap_usd=null/reset_history=false；历史支出、失败和未结算保持，新增费用待闭合。无正式部署、合并、外部业务写入授权。
-- 回退：本分支可回到上述main；隔离实验保留全部源库/策略/账本，未更改正式服务。记录格式合格不代表独立质量或累计净收益成立。
+- 更新时间与交接人：2026-10-31，Codex；用户授权夜间优化，已完成本轮有限真实闭环。
+- 目标与范围：共享跨场景质量证据与更新生命周期；视频策略发布→后继实际消费→下一源码编译/认证及Meta反思。F02冷净收益优化器的目标尚未接管视频形式晋级目标。
+- 分支 / 版本：`codex/rsi-meta-integration-20261030`，基于远程main2603388，恢复PR115源提交d12b826/ff3a6ce；[PR117](https://github.com/jingyio/GeneLoop/pull/117)已推送供审核，未合并/部署。原Desktop未提交工作和正式服务未覆盖。
+- 已完成：quality_evaluation及Python/TS解释、原始帧匿名复核/证据字节验证、形式共同更新核验与原子发布回执；失败/未知质量不能进入下一学习、纯程序回放不能自证；反思收到双方具体质量观察，新认证池进入下一候选。
+- 已验证：全量Python1616通过/235skip；Node1424通过/15skip/1个既有typed413并发EPIPE，单文件9通过。定向83Python/41Node及后续29项、最后质量反馈10项通过。rsi:check/smoke/motif:check通过，免费MCP各10检查通过；本地TS加载实际发布包成功。这些诊断与真实效果分别记录。
+- 实验结论：六新题两臂各6/6所测质量通过，请求44→33、前向代理估费降20.97%，总Token增加28.96%，候选4/6最终程序成片。第1代70ea12d63519实际发布；后继候选2/2、基线1/2，候选18请求/基线17，标题错位基线真实排除；请求3209学习并认证1候选，3210/3211真实反思均继承已发布父策略，下一代未发布。详见[实验](../experiments/rsi-meta-overnight-20261030.md)，旧拒绝不改写。
+- 配置与数据：V100 `/home/jingyij/jjy`，加载`.local/remote-env.sh`；BASE私有`.local/experiments/remotion-motivation-20261027-v1`，新增E `rsi-meta-overnight-20261030/`。CODE2归档SHA5cf4a72bf16701ba1bb7dcad6708053592575aa1cab117c3553336675de039bb；CODE3仅补充双方反馈的独立反思快照。frozen-plan-v2、共同回执、原片/质量与账本镜像在本地`.local/rsi-meta-overnight-20261030/remote-study/`。
+- 权限与预算：用户充足预算，cap_usd=null、reset_history=false；新增3097–3211共115请求/USD0.10700980代理估费，127次Files POST另列；累计已知USD2.60650062、旧2299/2523/2524未知，账单/宿主费用未知。闭合目录accounting/closed-through-3211；无活动付费runner。无正式部署、自动合并或外部业务写入授权。
+- 未完成与限制：AI选定帧复核不是人工盲评/全片验收；下一提案未独立验证；尚未证明持续调用下降或冷探索净收益。t92程序13请求，重复诊断/重渲染仍需优化，不能挑最便宜尝试。
+- 接手下一步：1. 用户早晨审阅成片及PR117，核对失败例和有限质量范围；2. 冻结下一提案/候选池，用新的留出任务验证显式标题位置及重渲染开销；3. 独立核算冷研究开销与未来摊销，再决定推广，保留不合格与未知费用。
+- 回退与风险：可回到main2603388或本分支e07181f；不可变第1代发布池不随新候选变化。原轨迹/失败/私有配置全部保留，未重启正式服务，不清理其他Docker任务，不提交原始日志或凭证。

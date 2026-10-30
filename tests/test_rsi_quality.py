@@ -59,3 +59,23 @@ def test_python_and_authoritative_typescript_agree():
         actual=subprocess.check_output(['node','--experimental-strip-types','--input-type=module','-e',script,json.dumps({'r':r,'binding':binding})],
             cwd=Path(__file__).resolve().parents[1],text=True).strip()
         assert actual==status(r)==expected
+
+
+def test_meta_feedback_retains_quality_findings_and_missing_review_stays_unknown(tmp_path):
+    import runpy
+    module=runpy.run_path(str(Path(__file__).resolve().parents[1]/'scripts/propose-reuse-form.py'))
+    run=tmp_path/'run';run.mkdir()
+    (run/'effective.json').write_text(json.dumps({'task':{'id':'task','instruction':'Current public fixture'}}))
+    (run/'events.jsonl').write_text('')
+    row={'task':'task','arm':'program','run':str(run),'review':None}
+    assert module['bounded_feedback']({'runs':[row]},tmp_path)[0]['independent_quality_findings']==[]
+    checks=sample()['payload']['checks'];checks[0]['status']='failed'
+    row['review']={'payload':{'checks':checks}}
+    actual=module['bounded_feedback']({'runs':[row]},tmp_path)[0]
+    assert actual['independent_quality_findings']==checks
+    native={**row,'arm':'fused','reviewed_quality_pass':False}
+    row['review']=None
+    actual=module['bounded_feedback']({'runs':[native,row]},tmp_path)[0]
+    assert actual['independent_quality_findings']==[]
+    assert actual['paired_native_measurements']['reviewed_quality_pass'] is False
+    assert actual['paired_native_measurements']['independent_quality_findings']==checks
