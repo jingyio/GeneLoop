@@ -1,5 +1,17 @@
 # DeepSeek Harless：场景、Motif 和 Harness 的接口
 
+## RSI 共享质量与复用形式更新（2026-10-30 夜间）
+
+`quality_evaluation` 是 `geneloop.rsi/v1` 的新增候选记录，包含 task_id、task_sha256、artifact_sha256、rubric_sha256、evaluator、scope、limitations 及 checks。每个检查有 id、passed/failed/unknown、具体 observation 与证据路径/SHA。`rsi_quality.py:quality_status` / `rsi_quality.ts:qualityStatus` 按场景提供的必需检查和当前摘要解释结果；缺项、重复、确定判定无证据会拒绝，unknown 保持未知。Python `verify_quality_files` 重新核对实际证据字节与目录归属。记录格式通过不等于评审可靠，具体检查器和可信评价标准仍来自场景宿主。
+
+候选 Schema 增加可选 `Versions.reuse_form`、component=reuse_form 与 patch_kind=reuse_form_revision；旧 Motif/Matcher 记录继续有效，旧消费者要升级 Schema 才能读取新类型。`reuse_form_protocol.py` 从受信测量/评价结果构造共同更新记录；`validate-reuse-form-update.mjs` 复用 TypeScript `validateRsiUpdate` 核验父版本、训练/验证证据与原始字节。该本地宿主桥接器不向模型开放审核权，其输入依赖场景独立媒体检查和外部像素复核，不能凭共同信封自证质量。
+
+形式快照拥有其关联的源码池；本适配器的旧工具 Motif 组件明确为 inactive，matcher 版本绑定实际 source_program_runtime 源码。现有 Python writer_lock、不可变代次与原子 latest 继续承担存储提交；共同 rsi-update.json / rsi-publication.json 与 policy/library 先完整暂存，最后提交指针才可被后继消费。新指针绑定共同回执SHA；Python resolve_form 和 TypeScript loadSourceForm 核验回执、候选与当前manifest。兼容历史无共同回执的旧策略。
+
+视频保留实际解码、源帧、当前源码、音频窗口检查。`prepare_selected_review.py` 隐去臂/成本，导出预先固定时点的原尺寸帧及实际帧号，独立映射表不在审阅包内；`--apply` 将逐项观察绑定到当前任务/视频/协议/帧字节。未知缺项暂停，失败保留。新学习器拒绝已有失败或未知的视觉评审；后继循环从实际质量通过的普通源码调用吸收经验，并给下一反思提供新认证候选池，纯程序回放不能自证。
+
+本轮形式晋级沿用合格前向费用目标，和 F02 optimization 的冷研究净收益目标分别报告，不因共享记录就宣称全探索成本已摊回。流程、真实状态与复现见[实验记录](experiments/rsi-meta-overnight-20261030.md)。
+
 ## Motif 参数编译与匹配清理（2026-10-30）
 
 `trace_compiler.compile_read_motif` 与 `edge_compiler.compile_witnessed_edge_motif` 不再要求训练中的参数来源值至少有两种。不同任务可以返回同一资料句柄；编译仍按逐条来源证据与参数相等关系建立动态绑定，不将观察值固化为常量。独立任务支持、留出认证、工具契约及在线检查沿用现有实现，无新增配置或 IR 字段。此修改不涉及 Paper Script 编译、沙箱认证或其输入依赖检查。

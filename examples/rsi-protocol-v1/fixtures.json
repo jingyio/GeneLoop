@@ -7,7 +7,7 @@
     },
     "matcher": {
       "id": "f02-admission-v1",
-      "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+      "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
     }
   },
   "tasks": {
@@ -284,7 +284,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "obligation_ref": "current-semantic-choice-B",
@@ -350,7 +350,7 @@
         "reason": "demonstration only",
         "base_version": {
           "id": "f02-admission-v1",
-          "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+          "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
         },
         "feedback": [
           {
@@ -384,7 +384,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "feedback": [
@@ -427,7 +427,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "feedback": [
@@ -457,7 +457,7 @@
         "component": "matcher",
         "base_version": {
           "id": "f02-admission-v1",
-          "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+          "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
         },
         "next_version": {
           "id": "matcher-v2",
@@ -470,7 +470,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "feedback": [
@@ -496,7 +496,7 @@
       "payload": {
         "id": "report-1",
         "candidate_id": "candidate-rule_revision",
-        "candidate_sha256": "b33e33cc64916e231245a36faac3d1a17b4779ce1bf70d994b57d0afe1ec35fd",
+        "candidate_sha256": "29f3df75662d2615fb95087891ae771b490f52ae43601311ae40bdbcfff5dbba",
         "base_version": {
           "id": "diagnostic-motif-v1",
           "sha256": "9e705918a74a65c2f0dfc365319734a858afa5423db55459be614e9b6261ca2d"
@@ -539,7 +539,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "evidence_ids": [
@@ -575,7 +575,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "provider_call_id": null,
@@ -610,7 +610,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "provider_call_id": null,
@@ -645,7 +645,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "provider_call_id": null,
@@ -666,7 +666,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "next_versions": {
@@ -676,7 +676,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "manifest_sha256": "a4edaba9404cd13632445abe434c54950da29e8d94d4a559cfd441e02269007a"
@@ -696,7 +696,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "restored_versions": {
@@ -706,7 +706,7 @@
           },
           "matcher": {
             "id": "f02-admission-v1",
-            "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+            "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
           }
         },
         "manifest_sha256": "09aeac7da26f2670281097d6c1194a52efcaabd2ee1179e1d28906822e6b06da"
@@ -756,7 +756,7 @@
             },
             "matcher": {
               "id": "f02-admission-v1",
-              "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+              "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
             }
           },
           "obligation_ref": "current-semantic-choice-B",
@@ -789,7 +789,7 @@
             },
             "matcher": {
               "id": "f02-admission-v1",
-              "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+              "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
             }
           },
           "obligation_ref": "current-semantic-choice-B",
@@ -822,7 +822,7 @@
             },
             "matcher": {
               "id": "f02-admission-v1",
-              "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+              "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
             }
           },
           "obligation_ref": "current-semantic-choice-B",
@@ -855,7 +855,7 @@
             },
             "matcher": {
               "id": "f02-admission-v1",
-              "sha256": "6502d9504a6ac4ec02c83a0888355adc9982cb346e54785df16f8644e7da918d"
+              "sha256": "882a269a0402293c3e565e908791edaf7ff39dfb7742c974dbe49c295a028aa6"
             }
           },
           "obligation_ref": "current-semantic-choice-B",

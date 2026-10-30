@@ -71,3 +71,9 @@ npm run motif:check
 | Matcher 更新 | 提供格式、独立审核及发布接缝 | F08 生成真实代码 diff、独立验证并加载后续版本 |
 
 本轮 opt-in 接口不自动迁移旧库或接管生产。演示宿主的 `certified:true` 仅是明示的人工诊断信任，不能接入真实用户会话。完整学习认证、实际组件发布适配器和 F03 ABI 联审仍需后续工作；不因本 PR 测试通过就关闭整个 F02。
+
+## 2026-10-30：复用形式适配与共享质量证据
+
+夜间整合分支恢复未进入main的F02提交，并增加 `quality_evaluation` 与 `reuse_form_revision`。`Versions.reuse_form` 可选，旧记录不变；新类型需要更新后的候选Schema。视频外环通过共同 TypeScript 更新核验，沿用原生不可变存储与原子指针，在同一代次保存共同发布回执。质量评审的独立性来自场景媒体检查/实际像素复核，公共信封和宿主桥接器不是自动质量认证。
+
+形式优化使用其既有合格前向费用目标，尚未转成 optimization 冷净收益门槛，也未默认启用生产。接口、代码及实时实验边界见[RSI整合记录](experiments/rsi-meta-overnight-20261030.md)。

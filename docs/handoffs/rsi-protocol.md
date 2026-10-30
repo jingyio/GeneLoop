@@ -1,13 +1,13 @@
-# F02 当前交接
+# F02 / 形式 RSI 当前交接
 
-- 更新时间与交接人：2026-10-25，Codex；Owner @jingyio，Reviewer @peilin6。
-- 目标与范围：执行/更新接缝已交付，按用户新要求追加机会评估、启动计划和配对效果审核；不替代 F03/F05/F08，不恢复旧四小时自动化。
-- 分支 / commit：`codex/f02-protocol-v1-20261024`，PR#115，base仍为#114；最终commit及CI以PR为准。不合并、不关闭#110。
-- 已完成：`rsi_protocol.{py,ts}`；新增 `rsi_optimization.{py,ts}`、六类共享记录、免费 `npm run rsi:optimize`；开始前冻结证据/策略/评测器/版本与留出输入，效果审核与原认证均通过后才允许适配器提交。
-- 已验证：本轮定向59 Python/43 Node；全量与smoke见[追加记录](../experiments/f02-optimization-20261025-v1.md)。原有真实原生call_id/计量接线证据沿用[上一轮](../experiments/f02-protocol-local-20261024-v1.md)，本轮没有新模型请求。
-- 实验结论：15条历史真实请求重放为待核验，不能凭局部计数推断整次请求可替代；人工费用样本只支持决策/拒绝机制。没有自动学习、完整任务质量或累计降本结论。
-- 配置与数据：公共说明[优化协议](../rsi-optimization-v1.md)、Schema及 `examples/rsi-protocol-v1/`；私有 `.local/f02-optimization-20261025-v1/` 保留原投影、终态账本新投影及摘要。凭证仅既有环境，不入Git。
-- 权限与费用：本轮0请求/USD0；上一轮18请求约USD0.00195336，本地历史累计7358请求/约USD10.45235780，旧3笔未结算、其他主机/账单未知均保留。允许独立分支/PR，不合并、不改生产或外部业务应用。
-- 未完成：#114 G0、peilin6接口审核、F03可信任务登记册/独立评审器；真实修改生成、独立认证、Registry组件发布及后续任务采用仍待F05/F08接入。旧API仅保留兼容，新优化路径须显式调用受效果审核约束的入口。
-- 接手下一步：1. 运行 `npm run rsi:optimize` 并审阅一页结果；2. F03按冻结Dev任务输出完整请求/质量/版本见证，先选一个有据可查的机会；3. F05/F08接真实修改后跑独立配对及下一任务采用，含失败与额外开销。
-- 回退与风险：本轮opt-in代码可按PR回退至d12b826；原执行协议可退至bb4c8e7，不删除账本/旧证书。诊断宿主不是生产认证；在线运行样例仍依赖Python计算。人工时间与耗时单列，当前门槛不是完整人力总成本结论。
+- 更新时间与交接人：2026-10-31，Codex；用户授权夜间继续优化，早晨验收。
+- 目标与范围：补回未进入main的F02协议/优化代码，统一跨场景质量记录，将视频复用形式纳入更新生命周期，验证真实发布与后继消费。
+- 分支 / 基线：`codex/rsi-meta-integration-20261030`，远程main `26033884e8393b9e3aa6365801950710bf6f7cfd`；F02来源d12b826/ff3a6ce已在隔离分支恢复。PR115虽merged，其目标为F00分支，不能当已进入main。原Desktop工作区未覆盖。
+- 已完成：`quality_evaluation`、`rsi_quality.{py,ts}`；可选reuse_form版本/组件与reuse_form_revision；视频外环共同TypeScript更新核验、共享回执与Python/TS加载核验；按真实视觉证据筛选下一轮正常源码。
+- 已验证：定向83Python/41Node及后续29项通过；全量Python1616通过/235跳过；Node1424通过/15跳过/1个既有typed413并发EPIPE，单文件9项通过。rsi:check、smoke、motif:check通过，均无模型诊断。
+- 实验：`rsi-meta-overnight-20261030` 六对真实任务运行中；来源库v7含已认证面板修复（3帧MAE0），免费MCP10项通过。发布与递归结果尚待验收，不能提前记完成。完整边界见[实验记录](../experiments/rsi-meta-overnight-20261030.md)。
+- 配置与数据：V100私有BASE `.local/experiments/remotion-motivation-20261027-v1/`，新增 `rsi-meta-overnight-20261030/`；沿用ledger/requests/checkpoint，code2包SHA5cf4a72bf16701ba1bb7dcad6708053592575aa1cab117c3553336675de039bb。本地接续 `.local/rsi-meta-overnight-20261030/ACTIVE_WORK.md`。
+- 未完成：新成片像素复核、合格发布/新任务TS加载、后继编译认证与实际下一Meta；归档成本、PR及最终交接。通用F02冷净收益优化器尚未接管形式晋级目标，仍明确区分。
+- 接手下一步：1. 等有限12运行，先隐藏臂/费用复核原始帧；2. 从同计划继续发布/后继链，失败保留并定位；3. 闭合账本、同步交付、更新结论并提交PR供审核。
+- 权限与预算：用户2026-10-30明确授权夜间优化且预算充足，cap_usd=null/reset_history=false；历史支出、失败和未结算保持，新增费用待闭合。无正式部署、合并、外部业务写入授权。
+- 回退：本分支可回到上述main；隔离实验保留全部源库/策略/账本，未更改正式服务。记录格式合格不代表独立质量或累计净收益成立。

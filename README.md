@@ -1,5 +1,7 @@
 # GeneLoop：Motif × DeepSeek Harness × 自定义 MCP
 
+新增[RSI 共享质量证据与复用形式整合](docs/experiments/rsi-meta-overnight-20261030.md)：F02 统一记录任务/产物/评价标准和逐项证据，视频形式更新复用共同版本核验与发布回执。Python/TypeScript 都能核对新记录；视频帧/音频检查仍由场景提供。当前真实验证进度、所测质量范围与成本边界见实验记录，未部署正式服务。
+
 新增[视频程序复用与复用形式RSI实验](scenarios/remotion_edit/structured/README.md)：从正常视频工具轨迹学习参数化TSX，并让目录/类型化工具、调用策略和下一轮编译方式进入可验证的外环。普通基线保留同样的源码写入与渲染融合能力；当前实现及实际效果边界见[实验记录](docs/experiments/remotion-program-rsi-20261030-v1.md)，尚未部署正式服务。
 F02 审核候选提供一个免费可运行的经验执行协议演示：`npm run rsi:demo` 展示两个任务目标共享局部计数，以及版本/权限/证据失效时停止；`npm run rsi:check` 检查 Python/TypeScript 一致性。先看[通俗说明与接口](docs/rsi-protocol-v1.md)。当前使用人工算子与合成数据，不代表自动学习、完整任务或降本验收。
 

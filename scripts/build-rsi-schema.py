@@ -25,10 +25,15 @@ def build():
     nullable_cost = {'oneOf': [{'type': 'number'}, {'type': 'null'}]}
     version = obj(id=s, sha256=s)
     versions = obj(motif=version, matcher=version)
+    versions['properties']['reuse_form'] = version  # Optional: old v1 records stay valid.
     reference = obj(id=s, sha256=s, version=s)
     refs = arr(reference)
     request_ref = obj(ledger_ref=s, id=s)
     payloads = {
+        'quality_evaluation': obj(id=s, task_id=s, task_sha256=s, artifact_sha256=s, rubric_sha256=s,
+                        evaluator=s, scope=s, limitations=arr(s),
+                        checks=arr(obj(id=s, status=enum('passed', 'failed', 'unknown'),
+                            observation=s, evidence=arr(obj(ref=s, sha256=s))))),
         'provider_request': obj(id=s, task_id=s, ledger_ref=s, model=s,
                         phase=enum('booked', 'completed', 'failed', 'unknown'),
                         prompt_tokens=nullable_count, cache_hit_tokens=nullable_count,
@@ -56,11 +61,11 @@ def build():
         'runtime_decision': obj(request_id=s, task_id=s,
                         action=enum('execute', 'handoff', 'reject'), reason=s,
                         versions=versions, evidence_ids=arr(s)),
-        'diagnosis': obj(id=s, component=enum('motif', 'matcher'), reason=s,
+        'diagnosis': obj(id=s, component=enum('motif', 'matcher', 'reuse_form'), reason=s,
                         base_version=version, feedback=refs),
         'candidate_patch': obj(id=s, diagnosis_id=s,
-                        patch_kind=enum('rule_revision', 'motif_split', 'matcher_code_patch'),
-                        component=enum('motif', 'matcher'), base_version=version,
+                        patch_kind=enum('rule_revision', 'motif_split', 'matcher_code_patch', 'reuse_form_revision'),
+                        component=enum('motif', 'matcher', 'reuse_form'), base_version=version,
                         next_version=version, compatible_versions=versions,
                         feedback=refs, affected_operator_ids=arr(s),
                         payload_sha256=s, diff_ref=s, training_task_ids=arr(s)),
@@ -87,23 +92,23 @@ def build():
                         quality=enum('passed', 'failed', 'unreviewed'), quality_sha256=nullable,
                         actual_adoptions=n, wall_time_ms=nullable_cost, manual_review_seconds=nullable_cost),
         'optimization_boundary': obj(id=s, run_id=s, structure_key=s,
-                        component=enum('motif', 'matcher'),
+                        component=enum('motif', 'matcher', 'reuse_form'),
                         cause=enum('repeated_execution', 'rule_failure', 'matcher_miss', 'unknown'),
                         disposition=enum('verified_determinate', 'mixed_semantics', 'unknown'),
                         request_refs=arr(request_ref), witness_sha256=s),
-        'optimization_assessment': obj(id=s, structure_key=s, component=enum('motif', 'matcher'),
+        'optimization_assessment': obj(id=s, structure_key=s, component=enum('motif', 'matcher', 'reuse_form'),
                         action=enum('start', 'defer', 'skip'), reasons=arr(s),
                         source_sha256=s, policy_sha256=s, versions=versions,
                         discovery_task_ids=arr(s), discovery_task_sha256s=arr(s), run_ids=arr(s), audit_ids=arr(s),
                         avoidable_request_count=n, avoidable_model_usd=nullable_cost,
                         population_task_count=n, projected_net_usd=nullable_cost),
         'optimization_plan': obj(id=s, assessment_id=s, assessment_sha256=s,
-                        source_sha256=s, policy_sha256=s, component=enum('motif', 'matcher'),
+                        source_sha256=s, policy_sha256=s, component=enum('motif', 'matcher', 'reuse_form'),
                         structure_key=s, diagnosis_id=s, base_versions=versions,
                         discovery_task_ids=arr(s), discovery_task_sha256s=arr(s), validation_task_ids=arr(s),
                         validation_inputs=arr(obj(task_id=s, sha256=s)),
                         conditions_sha256=s, rubric_sha256=s, evaluator=version,
-                        allowed_patch_kinds=arr(enum('rule_revision', 'motif_split', 'matcher_code_patch')),
+                        allowed_patch_kinds=arr(enum('rule_revision', 'motif_split', 'matcher_code_patch', 'reuse_form_revision')),
                         required_checks=arr(s),
                         stop_conditions=arr(s)),
         'optimization_verdict': obj(id=s, plan_id=s, plan_sha256=s,

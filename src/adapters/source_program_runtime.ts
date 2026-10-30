@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {join} from 'node:path';
 import {assertSupportedJsonSchema,validateJsonSchemaValue} from '@deepseek-ai/dsh-tools';
 import {digest} from '../motif_core/online_skill_runtime.mjs';
+import {validateRsiRecord} from './rsi_protocol.ts';
 
 export const parameterToken='__GENELOOP_PARAMETERS__';
 export function sourceProgramIdentity(program:any){
@@ -78,5 +79,14 @@ export function loadSourceForm(store:string,owner:string){
    !['program_catalog','typed_tools'].includes(policy.form?.representation))throw Error('reuse_form_policy_changed');
  const library=loadSourceLibrary(libraryPath);
  if(library.digest!==policy.library_digest)throw Error('reuse_form_library_changed');
+ if(policy.rsi_update_digest){
+  const directory=join(root,pointer.policy.split('/')[0]);
+  const bundle=JSON.parse(readFileSync(join(directory,'rsi-update.json'),'utf8'));
+  const publicationBytes=readFileSync(join(directory,'rsi-publication.json'),'utf8');
+  const publication=validateRsiRecord(JSON.parse(publicationBytes)),p=publication.payload;
+  if(digest(bundle)!==policy.rsi_update_digest||createHash('sha256').update(publicationBytes).digest('hex')!==pointer.rsi_publication_sha256||
+    publication.record_type!=='publication_receipt'||p.manifest_sha256!==policy.digest||p.candidate_id!==policy.proposal_digest||
+    p.next_versions.reuse_form?.sha256!==policy.proposal_digest)throw Error('reuse_form_protocol_receipt_changed');
+ }
  return {policy,library_path:libraryPath,pointer_sha256:createHash('sha256').update(raw).digest('hex')};
 }

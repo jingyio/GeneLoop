@@ -10,11 +10,12 @@ assertSupportedJsonSchema(schema);
 export const bytesSha256=(value:string|Buffer)=>createHash('sha256').update(value).digest('hex');
 const clone=<T>(value:T):T=>structuredClone(value);
 type Version={id:string;sha256:string};
-export type Versions={motif:Version;matcher:Version};
+export type Versions={motif:Version;matcher:Version;reuse_form?:Version};
 type EvidenceRef={id:string;sha256:string;version:string};
 export type RsiRecord={protocol:'geneloop.rsi/v1';record_type:string;payload:any};
-const sameVersion=(a:Version,b:Version)=>a.id===b.id&&a.sha256===b.sha256;
-const sameVersions=(a:Versions,b:Versions)=>sameVersion(a.motif,b.motif)&&sameVersion(a.matcher,b.matcher);
+const sameVersion=(a:Version|undefined,b:Version|undefined)=>!!a&&!!b&&a.id===b.id&&a.sha256===b.sha256;
+const sameVersions=(a:Versions,b:Versions)=>sameVersion(a.motif,b.motif)&&sameVersion(a.matcher,b.matcher)&&
+ ((!a.reuse_form&&!b.reuse_form)||sameVersion(a.reuse_form,b.reuse_form));
 const sameRefs=(a:EvidenceRef[],b:EvidenceRef[])=>a.length===b.length&&new Set(a.map(x=>x.id)).size===a.length&&
  a.every(x=>b.some(y=>x.id===y.id&&x.sha256===y.sha256&&x.version===y.version));
 
@@ -152,8 +153,9 @@ export function validateRsiUpdate(candidateBytes:string|Buffer,reportBytes:strin
  const check=(condition:boolean,reason:string)=>{if(!condition)throw Error(reason);};
  check(candidate.sha256===host.candidateSha256,'rsi_candidate_bytes_changed');
  check(report.sha256===host.reportSha256,'rsi_report_bytes_changed');
- check(c.component===(c.patch_kind==='matcher_code_patch'?'matcher':'motif'),'rsi_patch_target_mismatch');
- check(sameVersion(c.base_version,host.versions[c.component as 'motif'|'matcher']),'rsi_stale_parent');
+ const targets={rule_revision:'motif',motif_split:'motif',matcher_code_patch:'matcher',reuse_form_revision:'reuse_form'};
+ check(c.component===targets[c.patch_kind as keyof typeof targets],'rsi_patch_target_mismatch');
+ check(sameVersion(c.base_version,host.versions[c.component as keyof Versions]),'rsi_stale_parent');
  check(!sameVersion(c.base_version,c.next_version)&&c.base_version.id!==c.next_version.id,'rsi_new_version_required');
  check(sameVersions(c.compatible_versions,host.versions),'rsi_incompatible_components');
  check(c.payload_sha256===host.payloadSha256,'rsi_patch_payload_changed');

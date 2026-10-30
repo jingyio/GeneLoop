@@ -22,6 +22,11 @@ def test_current_ordinary_source_is_usable_after_native_render_or_program_fallba
     save(work/'out/render-1/receipt.json',{'source_version':sha(source),'video_sha256':video_sha})
     save(tmp_path/'events.jsonl',{'type':'tool/call','data':{'name':'mcp__remotion__'+tool,'callId':'call-1','arguments':{'text':source}}})
     assert learner.collect(tmp_path)[0]['call_id']=='call-1'
+    save(tmp_path/'qa/semantic-review.json',{'accepted':False,'observed_failures':['literal title missing']})
+    with pytest.raises(ValueError,match='quality_review_not_passed'):learner.collect(tmp_path)
+    save(tmp_path/'qa/semantic-review.json',{'accepted':True})
+    witness=learner.collect(tmp_path)[0]
+    assert witness['quality_review_sha256']==sha((tmp_path/'qa/semantic-review.json').read_bytes())
     # A program render alone cannot serve as its own model-authored source witness.
     save(tmp_path/'events.jsonl',{'type':'tool/call','data':{'name':'mcp__remotion__render_program','callId':'call-2','arguments':{'parameters':{}}}})
     with pytest.raises(ValueError,match='current_source_not_witnessed'):learner.collect(tmp_path)

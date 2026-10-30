@@ -51,13 +51,25 @@ def continue_form(plan,expected_digest=None):
     else:
         run(native+'review_program_runs.py',['--output-root',out,'--trial',trial,
             '--max-attempts',config.get('review_attempts',1),'--call-model'])
-    tasks=read(config['tasks']);normal=[]
+    from scenarios.remotion_edit.structured.review_program_runs import visual_review_status
+    from scenarios.remotion_edit.structured.learn_programs import collect
+    tasks=read(config['tasks']);normal=[];omitted=[]
     for task in tasks:
         for arm in ('fused','program'):
             effective=read(out/'runs'/trial/arm/task['id']/'effective.json')
             if effective.get('source_form_policy_digest')!=policy['digest']:
                 raise ValueError('continuation_did_not_load_published_policy')
-        normal.append(out/'runs'/trial/'fused'/task['id'])
+        for arm in ('fused','program'):
+            source=out/'runs'/trial/arm/task['id'];qa=read(source/'qa/verification.json')
+            if visual_review_status(read(source/'qa/semantic-review.json'),source,task,qa)!='passed':
+                omitted.append({'task':task['id'],'arm':arm,'reason':'quality_not_passed'});continue
+            try:collect(source)
+            except ValueError as error:
+                omitted.append({'task':task['id'],'arm':arm,'reason':str(error)});continue
+            normal.append(source)
+    if not normal:
+        return {'status':'no_qualified_native_source_for_next_learning','policy_digest':policy['digest'],
+            'omitted_sources':omitted,'candidate_learning_started':False}
     learning=out/('learning-followup-'+suffix)
     if not (learning/'learning-summary.json').exists():
         run(native+'learn_programs.py',['--output',learning,'--form-store',store,'--form-owner',owner,
@@ -95,6 +107,7 @@ def continue_form(plan,expected_digest=None):
         'next_source_library_parent_digest':next_pool['parent_digest'],
         'next_form_parent_digest':next_proposal['parent_digest'],'next_proposal_digest':next_proposal['digest'],
         'next_candidates_published':False,'measurements_sha256':sha(measured),'billing_usd':None}
+    result['omitted_sources']=omitted
     durable(receipt,result,exclusive=True);return result
 
 

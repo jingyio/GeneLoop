@@ -11,6 +11,117 @@
         },
         "record_type": {
           "type": "string",
+          "const": "quality_evaluation"
+        },
+        "payload": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "task_id": {
+              "type": "string"
+            },
+            "task_sha256": {
+              "type": "string"
+            },
+            "artifact_sha256": {
+              "type": "string"
+            },
+            "rubric_sha256": {
+              "type": "string"
+            },
+            "evaluator": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "limitations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "checks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "passed",
+                      "failed",
+                      "unknown"
+                    ]
+                  },
+                  "observation": {
+                    "type": "string"
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string"
+                        },
+                        "sha256": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "sha256"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "status",
+                  "observation",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "id",
+            "task_id",
+            "task_sha256",
+            "artifact_sha256",
+            "rubric_sha256",
+            "evaluator",
+            "scope",
+            "limitations",
+            "checks"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "protocol",
+        "record_type",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "const": "geneloop.rsi/v1"
+        },
+        "record_type": {
+          "type": "string",
           "const": "provider_request"
         },
         "payload": {
@@ -463,6 +574,22 @@
                     "sha256"
                   ],
                   "additionalProperties": false
+                },
+                "reuse_form": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [
@@ -604,6 +731,22 @@
                     "sha256"
                   ],
                   "additionalProperties": false
+                },
+                "reuse_form": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [
@@ -705,6 +848,22 @@
                     "sha256"
                   ],
                   "additionalProperties": false
+                },
+                "reuse_form": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [
@@ -759,7 +918,8 @@
               "type": "string",
               "enum": [
                 "motif",
-                "matcher"
+                "matcher",
+                "reuse_form"
               ]
             },
             "reason": {
@@ -847,14 +1007,16 @@
               "enum": [
                 "rule_revision",
                 "motif_split",
-                "matcher_code_patch"
+                "matcher_code_patch",
+                "reuse_form_revision"
               ]
             },
             "component": {
               "type": "string",
               "enum": [
                 "motif",
-                "matcher"
+                "matcher",
+                "reuse_form"
               ]
             },
             "base_version": {
@@ -909,6 +1071,22 @@
                   "additionalProperties": false
                 },
                 "matcher": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
+                },
+                "reuse_form": {
                   "type": "object",
                   "properties": {
                     "id": {
@@ -1182,6 +1360,22 @@
                     "sha256"
                   ],
                   "additionalProperties": false
+                },
+                "reuse_form": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [
@@ -1210,6 +1404,22 @@
                   "additionalProperties": false
                 },
                 "matcher": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
+                },
+                "reuse_form": {
                   "type": "object",
                   "properties": {
                     "id": {
@@ -1311,6 +1521,22 @@
                     "sha256"
                   ],
                   "additionalProperties": false
+                },
+                "reuse_form": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [
@@ -1339,6 +1565,22 @@
                   "additionalProperties": false
                 },
                 "matcher": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
+                },
+                "reuse_form": {
                   "type": "object",
                   "properties": {
                     "id": {
@@ -1524,6 +1766,22 @@
                     "sha256"
                   ],
                   "additionalProperties": false
+                },
+                "reuse_form": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
                 }
               },
               "required": [
@@ -1658,7 +1916,8 @@
               "type": "string",
               "enum": [
                 "motif",
-                "matcher"
+                "matcher",
+                "reuse_form"
               ]
             },
             "cause": {
@@ -1745,7 +2004,8 @@
               "type": "string",
               "enum": [
                 "motif",
-                "matcher"
+                "matcher",
+                "reuse_form"
               ]
             },
             "action": {
@@ -1788,6 +2048,22 @@
                   "additionalProperties": false
                 },
                 "matcher": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
+                },
+                "reuse_form": {
                   "type": "object",
                   "properties": {
                     "id": {
@@ -1922,7 +2198,8 @@
               "type": "string",
               "enum": [
                 "motif",
-                "matcher"
+                "matcher",
+                "reuse_form"
               ]
             },
             "structure_key": {
@@ -1951,6 +2228,22 @@
                   "additionalProperties": false
                 },
                 "matcher": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
+                },
+                "reuse_form": {
                   "type": "object",
                   "properties": {
                     "id": {
@@ -2039,7 +2332,8 @@
                 "enum": [
                   "rule_revision",
                   "motif_split",
-                  "matcher_code_patch"
+                  "matcher_code_patch",
+                  "reuse_form_revision"
                 ]
               }
             },

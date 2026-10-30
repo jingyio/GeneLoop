@@ -39,7 +39,7 @@ export function startRsiOptimization(assessmentBytes:string|Buffer,policyBytes:s
   new Set(a.discovery_task_sha256s).size>=p.min_discovery_tasks,'optimization_discovery_insufficient');
  const diagnosis=host.diagnoses.get(selection.diagnosisId);
  check(diagnosis?.record_type==='diagnosis'&&diagnosis.payload.component===a.component&&
-  equal(diagnosis.payload.base_version,host.versions[a.component as 'motif'|'matcher']),'optimization_diagnosis_binding_invalid');
+  equal(diagnosis.payload.base_version,host.versions[a.component as keyof Versions]),'optimization_diagnosis_binding_invalid');
  const ids=selection.validationTaskIds,hashes=ids.map(id=>host.validationTasks.get(id));
  check(ids.length>=p.min_validation_tasks&&new Set(ids).size===ids.length&&
   !ids.some(id=>a.discovery_task_ids.includes(id))&&hashes.every(Boolean)&&
@@ -53,7 +53,7 @@ export function startRsiOptimization(assessmentBytes:string|Buffer,policyBytes:s
   validation_task_ids:ids,conditions_sha256:host.conditionsSha256,rubric_sha256:host.rubricSha256,
   evaluator:host.evaluator,
   validation_inputs:ids.map((id,index)=>({task_id:id,sha256:hashes[index]})),
-  allowed_patch_kinds:a.component==='matcher'?['matcher_code_patch']:['rule_revision','motif_split'],
+  allowed_patch_kinds:a.component==='reuse_form'?['reuse_form_revision']:a.component==='matcher'?['matcher_code_patch']:['rule_revision','motif_split'],
   required_checks:['task_quality','paired_conditions','independent_tasks','full_model_cost','actual_adoption','native_guards'],
   stop_conditions:['stale_parent','evidence_changed','quality_regression','no_net_gain','native_guard_denied']});
 }

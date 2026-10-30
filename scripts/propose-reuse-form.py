@@ -61,6 +61,7 @@ def bounded_feedback(evidence,base):
                   'final_video_from_program','narrow_quality_pass','reviewed_quality_pass')}
         comparison={k:native.get(task['id'],{}).get(k) for k in ('model_requests','observed_peak_usd','tokens','narrow_quality_pass','reviewed_quality_pass')}
         result.append({'task':task['id'],'instruction':task['instruction'],'tool_sequence':calls,
+            'independent_quality_findings':(run.get('review') or {}).get('payload',{}).get('checks',[]),
             'actual_candidate_measurements':measured,'paired_native_measurements':comparison,
             'actual_task_status':run.get('status'),'unknown_cost_request_ids':run.get('unknown_request_ids',[]),
             'provider_failures':provider_failures,
