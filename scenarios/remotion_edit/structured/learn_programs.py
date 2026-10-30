@@ -57,6 +57,11 @@ def collect(run):
         raise ValueError('completed_native_source_with_frame_checks_required')
     if qa.get('audio_windows') and not all(w['pass'] for w in qa['audio_windows']):
         raise ValueError('source_audio_checks_failed')
+    review_file=run/'qa/semantic-review.json'
+    if review_file.exists():
+        from scenarios.remotion_edit.structured.review_program_runs import visual_review_status
+        if visual_review_status(json.loads(review_file.read_text()),run,effective['task'],qa)!='passed':
+            raise ValueError('source_quality_review_not_passed')
     work=run/effective['task']['id'];source=(work/'src/index.tsx').read_text()
     raw=(run/'events.jsonl').read_bytes();witness=None
     for row in map(json.loads,raw.splitlines()):
@@ -71,6 +76,9 @@ def collect(run):
                      'source_sha256':sha(source),'events_sha256':sha(raw),'task_sha256':digest(effective['task']),
                      'video_sha256':qa['video_sha256'],'verification_sha256':sha((run/'qa/verification.json').read_bytes()),
                      'run':str(run),'quality_scope':'technical_and_selected_source_frames_not_human_blind'}
+            if review_file.exists():
+                witness.update(quality_review_sha256=sha(review_file.read_bytes()),
+                    quality_scope='technical_source_frames_and_selected_visual_review_not_human_blind')
     if witness is None:raise ValueError('current_source_not_witnessed_in_native_call')
     matching=[json.loads(p.read_text()) for p in (work/'out').glob('render-*/receipt.json')]
     if not any(r['source_version']==sha(source) and r['video_sha256']==qa['video_sha256'] for r in matching):

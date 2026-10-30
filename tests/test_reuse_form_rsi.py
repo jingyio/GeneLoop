@@ -17,8 +17,9 @@ def evidence(form=FORM,parent=None):
     candidate={'runs':2,'reviewed_quality_pass':2,'observed_peak_usd':.05,'source_program_renders':2}
     report={'format':'reuse_form_measurements_v1','complete':True,'old_ledger_preserved':True,
             'arms':{'fused':native,'program':candidate},'gross_model_cost_reduction':.5,
-            'runs':[{'arm':'program','library_digest':library['digest'],
-                     'form_proposal_digest':propose_form(form,owner='owner',evidence_sha256='b'*64,parent_digest=parent)['digest']}],
+            'runs':[{'task':'validation-'+str(i),'arm':'program','library_digest':library['digest'],
+                     'quality_sha256':'d'*64,'narrow_quality_pass':True,
+                     'form_proposal_digest':propose_form(form,owner='owner',evidence_sha256='b'*64,parent_digest=parent)['digest']} for i in range(2)],
             'full_quality':'fixture_only','evaluator_sha256':'a'*64}
     return library,report
 
@@ -72,6 +73,14 @@ def test_python_publication_is_loadable_by_authoritative_typescript(tmp_path):
     actual=subprocess.check_output([node,'--experimental-strip-types','--input-type=module','-e',script,str(store)],
         cwd=Path(__file__).resolve().parents[1],text=True)
     assert json.loads(actual)==FORM
+    policy,path=resolve_form(store,'owner')
+    receipt=path.parent/'rsi-publication.json'
+    value=json.loads(receipt.read_text());assert value['payload']['next_versions']['reuse_form']['sha256']==policy['proposal_digest']
+    value['payload']['manifest_sha256']='e'*64;receipt.write_text(json.dumps(value))
+    with pytest.raises(ValueError,match='protocol_receipt_changed'):resolve_form(store,'owner')
+    failed=subprocess.run([node,'--experimental-strip-types','--input-type=module','-e',script,str(store)],
+        cwd=Path(__file__).resolve().parents[1],text=True,capture_output=True)
+    assert failed.returncode!=0 and 'protocol_receipt_changed' in failed.stderr
 
 
 def test_other_form_validation_cannot_promote_proposal():

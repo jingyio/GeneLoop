@@ -11,6 +11,8 @@ def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
 def measurement(base,experiment,registry,trial,baseline_trial=None):
+    from scenarios.remotion_edit.structured.review_program_runs import visual_review_status
+    from src.adapters.script_motif_compiler import digest
     ledger=[json.loads(s) for s in (base/'cost-ledger.jsonl').read_text().splitlines()]
     provider={r['request_id']:r for r in ledger if 'request_id' in r}
     auth=read(experiment/'authorized-experiment.json')
@@ -41,6 +43,7 @@ def measurement(base,experiment,registry,trial,baseline_trial=None):
         used.update(ids)
         qa=read(run/'qa/verification.json') if (run/'qa/verification.json').exists() else {}
         review=read(run/'qa/semantic-review.json') if (run/'qa/semantic-review.json').exists() else None
+        review_status=visual_review_status(review,run,effective['task'],qa) if review else 'unknown'
         audio=qa.get('audio_windows',[])
         narrow=bool(result['status']=='completed' and result['video_exists'] and qa.get('technical_pass') is True
             and qa.get('selected_source_frames_pass') is True and qa.get('published_video_matches_current_source') is True
@@ -52,7 +55,9 @@ def measurement(base,experiment,registry,trial,baseline_trial=None):
         calls=[r['data'] for r in map(json.loads,events.read_text().splitlines()) if r.get('type')=='tool/call'] if events.exists() else []
         runs.append({'task':effective['task']['id'],'arm':effective['arm'],'trial':effective.get('trial',trial),'run':str(run),
             'status':result['status'],'video_exists':result['video_exists'],'wall_seconds':result['elapsed_seconds'],
-            'narrow_quality_pass':narrow,'review':review,'reviewed_quality_pass':narrow and bool(review and review.get('accepted')),
+            'task_sha256':digest(effective['task']),'artifact_sha256':qa.get('video_sha256'),
+            'quality_status':review_status,'quality_sha256':sha(run/'qa/semantic-review.json') if review else None,
+            'narrow_quality_pass':narrow,'review':review,'reviewed_quality_pass':narrow and review_status=='passed',
             'source_program_renders':len(rendered),'final_video_from_program':any(r['render']['video_sha256']==qa.get('video_sha256') for r in rendered),
             'tool_calls':len(calls),'source_write_calls':sum(r['name'].endswith(('write_source','render_source')) for r in calls),
             'tool_order':effective['tool_order'],'prompt_sha256':effective['prompt_sha256'],

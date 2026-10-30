@@ -1,0 +1,131 @@
+[
+  {
+    "id": "t92_followup_cut",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 180,
+    "assets": [
+      "bunny_a_24.mp4",
+      "bunny_b_30.mp4",
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "Create a 6s three-shot edit at30fps. Output0-2s plays bunny_b_30.mp4 source3-5s; output2-4s plays bunny_a_24.mp4 source5-7s; output4-6s plays bunny_c_60.mp4 source2-4s. Muted cover, immediate picture and hard cuts at2s and4s. Display literal title FOLLOWUP CUT at the top throughout; bottom labels B, A, C respectively.",
+    "question_origin": "new_frozen_program_layout_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_b_30.mp4",
+          "source_seconds": 3.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 2.5,
+          "source": "bunny_a_24.mp4",
+          "source_seconds": 5.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        },
+        {
+          "output_seconds": 4.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 2.5,
+          "fit": "cover",
+          "roi": [
+            0.14,
+            0.24,
+            0.82,
+            0.64
+          ]
+        }
+      ],
+      "full_quality": "selected_original_frames_and_independent_checks_not_human_blind",
+      "review_seconds": [
+        0.1,
+        1.9667,
+        2,
+        2.5,
+        3.9667,
+        4,
+        4.5,
+        5.9
+      ]
+    },
+    "evaluation_role": "published_form_followup_v2"
+  },
+  {
+    "id": "t93_next_round",
+    "partition": "evaluation",
+    "width": 640,
+    "height": 360,
+    "fps": 30,
+    "frames": 240,
+    "assets": [
+      "bunny_c_60.mp4"
+    ],
+    "instruction": "Create an 8s muted 640x360 cover video at30fps using bunny_c_60.mp4 source1-9s, immediate picture. Add an opaque navy data panel covering exactly the bottom35% of the frame. Three bars V=12,W=21,X=30; all bars, baseline, value numbers and category labels must fit fully inside the panel without covering video above it. Display literal title NEXT ROUND at the top throughout. If animated, reach final values within the first second and hold them.",
+    "question_origin": "new_frozen_program_layout_parameter_variant",
+    "prompt_protocol": "semantic-timing-v2",
+    "arm_order": [
+      "fused",
+      "program"
+    ],
+    "qa": {
+      "pixel_mae_max": 16,
+      "source_samples": [
+        {
+          "output_seconds": 0.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 1.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.88,
+            0.6
+          ]
+        },
+        {
+          "output_seconds": 6.5,
+          "source": "bunny_c_60.mp4",
+          "source_seconds": 7.5,
+          "fit": "cover",
+          "roi": [
+            0.12,
+            0.2,
+            0.88,
+            0.6
+          ]
+        }
+      ],
+      "full_quality": "selected_original_frames_and_independent_checks_not_human_blind",
+      "review_seconds": [
+        0.1,
+        0.6,
+        1,
+        4,
+        7.9
+      ]
+    },
+    "evaluation_role": "published_form_followup_v2"
+  }
+]

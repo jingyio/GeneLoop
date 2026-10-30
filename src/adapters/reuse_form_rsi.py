@@ -5,6 +5,7 @@ or granting new tool rights. Existing durable publication and writer ownership
 are reused. Unknown measurements and rejected candidates never move latest.
 """
 from __future__ import annotations
+import json
 from pathlib import Path
 from itertools import product
 from .source_program_compiler import json_numbers
@@ -125,20 +126,35 @@ def publish_form(store,proposal,verdict,library,measurements_file,*,expected_par
             return {'published':False,'parent_digest':parent,'reasons':verdict['reasons']}
         if library['digest']!=digest(json_numbers({k:v for k,v in library.items() if k!='digest'})):
             raise ValueError('reuse_form_library_changed')
+        from .reuse_form_protocol import form_update_bundle,validate_form_update,encoded,sha as text_sha
+        from .rsi_protocol import envelope
+        payload_sha=text_sha(encoded({'proposal':proposal,'verdict':verdict,'library_digest':library['digest'],
+            'measurements_sha256':sha(measurements_file)}))
+        bundle=form_update_bundle(proposal,verdict,library,measured,
+            read(store/previous['policy']) if previous else None,payload_sha)
+        change=validate_form_update(bundle)
         generation=previous['generation']+1 if previous else 1
         body=json_numbers({'format':'reuse_form_policy_v1','owner':proposal['owner'],'generation':generation,
             'parent_digest':parent,'form':proposal['form'],'proposal_digest':proposal['digest'],
-            'verdict':verdict,'measurements_sha256':sha(measurements_file),'library_digest':library['digest']})
+            'verdict':verdict,'measurements_sha256':sha(measurements_file),'library_digest':library['digest'],
+            'rsi_update_digest':digest(json_numbers(bundle))})
         policy={**body,'digest':digest(body)};directory=store/('round-'+policy['digest'][:24])
-        for path,value in [(directory/'source-library.json',library),(directory/'policy.json',policy)]:
+        publication=envelope('publication_receipt',{'id':'form-publication-'+policy['digest'][:24],
+            'candidate_id':proposal['digest'],'report_id':json.loads(bundle['report'])['payload']['id'],
+            'previous_versions':change['previous'],'next_versions':change['next'],'manifest_sha256':policy['digest']})
+        for path,value in [(directory/'source-library.json',library),(directory/'policy.json',policy),
+                           (directory/'rsi-update.json',bundle),(directory/'rsi-publication.json',publication)]:
             if path.exists():
                 if read(path)!=value:raise ValueError('reuse_form_generation_changed')
             else:durable(path,value,exclusive=True)
-        # Only the pointer commit makes the generation visible to a new task.
+        # All immutable records above are staged. Only this atomic pointer commit
+        # publishes the form AND its shared receipt to subsequent tasks.
         durable(pointer_file,{'format':'reuse_form_pointer_v1','owner':proposal['owner'],'generation':generation,
             'digest':policy['digest'],'policy':(directory/'policy.json').relative_to(store).as_posix(),
-            'library':(directory/'source-library.json').relative_to(store).as_posix()})
-        return {'published':True,'generation':generation,'digest':policy['digest'],'parent_digest':parent}
+            'library':(directory/'source-library.json').relative_to(store).as_posix(),
+            'rsi_publication_sha256':sha(directory/'rsi-publication.json')})
+        return {'published':True,'generation':generation,'digest':policy['digest'],'parent_digest':parent,
+            'rsi_publication_sha256':sha(directory/'rsi-publication.json')}
 
 
 def resolve_form(store,owner):
@@ -154,4 +170,15 @@ def resolve_form(store,owner):
         or policy['library_digest']!=library['digest']
         or library['digest']!=digest(json_numbers({k:v for k,v in library.items() if k!='digest'}))):
         raise ValueError('reuse_form_pointer_changed')
+    if 'rsi_update_digest' in policy:
+        directory=policy_path.parent;bundle=read(directory/'rsi-update.json')
+        publication=read(directory/'rsi-publication.json')
+        from .rsi_protocol import validate_record
+        validate_record(publication)
+        p=publication['payload']
+        if (policy['rsi_update_digest']!=digest(json_numbers(bundle))
+            or pointer.get('rsi_publication_sha256')!=sha(directory/'rsi-publication.json')
+            or publication['record_type']!='publication_receipt' or p['manifest_sha256']!=policy['digest']
+            or p['candidate_id']!=policy['proposal_digest'] or p['next_versions']['reuse_form']['sha256']!=policy['proposal_digest']):
+            raise ValueError('reuse_form_protocol_receipt_changed')
     return policy,library_path

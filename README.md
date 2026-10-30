@@ -1,6 +1,11 @@
 # GeneLoop：Motif × DeepSeek Harness × 自定义 MCP
 
+新增[RSI 共享质量证据与复用形式整合](docs/experiments/rsi-meta-overnight-20261030.md)：F02 统一记录任务/产物/评价标准和逐项证据，视频形式更新复用共同版本核验与发布回执。Python/TypeScript 都能核对新记录；视频帧/音频检查仍由场景提供。已完成一次真实发布、后继TS加载和下一学习/认证/反思；六对限定质量通过任务44→33请求、前向代理估费降约21%，后继两题仍有基线质量失败与候选重渲染开销，未证明持续净收益。完整证据与边界见实验记录，未部署正式服务。
+
 新增[视频程序复用与复用形式RSI实验](scenarios/remotion_edit/structured/README.md)：从正常视频工具轨迹学习参数化TSX，并让目录/类型化工具、调用策略和下一轮编译方式进入可验证的外环。普通基线保留同样的源码写入与渲染融合能力；当前实现及实际效果边界见[实验记录](docs/experiments/remotion-program-rsi-20261030-v1.md)，尚未部署正式服务。
+F02 审核候选提供一个免费可运行的经验执行协议演示：`npm run rsi:demo` 展示两个任务目标共享局部计数，以及版本/权限/证据失效时停止；`npm run rsi:check` 检查 Python/TypeScript 一致性。先看[通俗说明与接口](docs/rsi-protocol-v1.md)。当前使用人工算子与合成数据，不代表自动学习、完整任务或降本验收。
+
+`npm run rsi:optimize` 补充“值得改哪里、怎样启动、改后是否接受”的免费决策演示；[十来行结果与接入说明](docs/rsi-optimization-v1.md)区分预计收益、配对结果和实际总支出。真实任务评审器与修改生成器仍待后续模块接入。
 
 新增独立的 Artifact Motif 实验：从真实任务中学到可换输入的 Python 计算／排版程序，经独立输入认证后，通过原生 Bash 复用并保留逐次回执。它仍是显式启用的实验入口，不替换正式服务或默认库；费用下降与反例一起记录。见[接口与复现](docs/interfaces.md#artifact-motif-独立实验接口2026-10-21)和[三场景成本学习](docs/experiments/three-scene-motif-cost-learning-20261021.md)。
 

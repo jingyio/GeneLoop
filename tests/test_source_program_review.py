@@ -45,3 +45,27 @@ def test_external_pixel_review_waits_for_current_video_and_task_evidence(tmp_pat
     assert external_reviews(tmp_path,'round','protocol')==[]
     save(run/'effective.json',{'task':{**task,'instruction':'Changed'}})
     with pytest.raises(ValueError,match='artifact_binding'):external_reviews(tmp_path,'round','protocol')
+
+
+def test_shared_external_quality_requires_observed_files_and_pauses_unknown(tmp_path):
+    from src.adapters.rsi_protocol import envelope
+    from scenarios.remotion_edit.structured.review_program_runs import VISUAL_CHECKS
+    import hashlib
+    run=tmp_path/'runs/shared/program/task';(run/'qa').mkdir(parents=True)
+    task={'id':'task','instruction':'Current task'};video='b'*64;rubric='c'*64
+    def save(path,value):path.write_text(json.dumps(value))
+    save(run/'result.json',{'status':'completed','video_exists':True})
+    save(run/'effective.json',{'task':task})
+    save(run/'qa/verification.json',{'technical_pass':True,'selected_source_frames_pass':True,'video_sha256':video})
+    frame=run/'qa/frame.png';frame.write_bytes(b'explicit protocol fixture, not real image')
+    record=envelope('quality_evaluation',{'id':'review','task_id':'task','task_sha256':digest(task),
+        'artifact_sha256':video,'rubric_sha256':rubric,'evaluator':'fixture','scope':'protocol diagnostic','limitations':['not real quality'],
+        'checks':[{'id':key,'status':'unknown','observation':'fixture awaiting review',
+            'evidence':[{'ref':'qa/frame.png','sha256':hashlib.sha256(frame.read_bytes()).hexdigest()}]} for key in VISUAL_CHECKS]})
+    save(run/'qa/semantic-review.json',record)
+    assert external_reviews(tmp_path,'shared',rubric)==[str(run)]
+    for check in record['payload']['checks']:check['status']='passed'
+    save(run/'qa/semantic-review.json',record)
+    assert external_reviews(tmp_path,'shared',rubric)==[]
+    frame.write_bytes(b'changed after review')
+    with pytest.raises(ValueError,match='evidence_changed'):external_reviews(tmp_path,'shared',rubric)

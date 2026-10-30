@@ -80,6 +80,19 @@ def failed_artifact_review(result,qa):
         'request_id':None,'reviewer_sha256':sha(Path(__file__).read_bytes())}
 
 
+VISUAL_CHECKS=('task_requirements','text_and_geometry','sampled_timing')
+
+
+def visual_review_status(record,run,task,qa,protocol_sha256=None):
+    if record.get('protocol')=='geneloop.rsi/v1':
+        from src.adapters.rsi_quality import quality_status,verify_quality_files
+        status=quality_status(record,task_sha256=digest(task),artifact_sha256=qa['video_sha256'],
+            rubric_sha256=protocol_sha256 or record['payload']['rubric_sha256'],required_checks=VISUAL_CHECKS)
+        verify_quality_files(record,run)
+        return status
+    return 'unknown' if record.get('quality_unreviewed') else 'passed' if record.get('accepted') is True else 'failed'
+
+
 def external_reviews(output_root,trial,protocol_sha256):
     """Collect actual pixel reviews supplied separately; missing evidence pauses publication."""
     pending=[]
@@ -92,6 +105,10 @@ def external_reviews(output_root,trial,protocol_sha256):
             continue
         record=read(target)
         if failed and record.get('reviewer')=='independent_actual_artifact_checks':continue
+        if record.get('protocol')=='geneloop.rsi/v1':
+            status=visual_review_status(record,run,read(run/'effective.json')['task'],qa,protocol_sha256)
+            if status=='unknown':pending.append(str(run))
+            continue
         if (not isinstance(record.get('accepted'),bool) or record.get('protocol_sha256')!=protocol_sha256
             or record.get('video_sha256')!=qa['video_sha256']
             or record.get('task_sha256')!=digest(read(run/'effective.json')['task'])):
